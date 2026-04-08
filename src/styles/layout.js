@@ -11,7 +11,7 @@ const layout = StyleSheet.create({
     width: width,
     height: height * 0.8,
     backgroundColor: colors.neutral,
-    padding: spacing.xl,
+    padding: spacing.xxl,
   },
   cardMd: {
     width: width,
@@ -29,7 +29,7 @@ const layout = StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: colors.tertiary,
-    padding: spacing.xl,
+    padding: spacing.xxl,
 },
 cardMdTertiary: {
     width: width,
@@ -50,7 +50,7 @@ cardSmTertiary: {
     width: width,
     height: height,
     backgroundColor: colors.bg,
-    padding: spacing.xl,
+    padding: spacing.xxl,
   },
   cardMdDark: {
     flex: 1,

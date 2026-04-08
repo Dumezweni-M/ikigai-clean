@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
 base: {
   paddingVertical: 14,
   paddingHorizontal: 24,
-  borderRadius: 6,
+  borderRadius: 0,
   alignItems: 'left',
   justifyContent: 'center',
   alignSelf: 'flex-start',
@@ -54,7 +54,7 @@ base: {
   borderColor: colors.secondary,
   paddingVertical: 18,
   paddingHorizontal: 48,
-  borderRadius: 6,
+  borderRadius: 0,
   alignItems: 'center',
   justifyContent: 'center',
   alignSelf: 'center',

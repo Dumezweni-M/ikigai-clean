@@ -74,7 +74,7 @@ export default function Welcome() {
                 <Stack style={layout.cardMd}>
                     <Text style={typography.label}>Reflection</Text>
                     <Text style={typography.h2}>Ready to construct your intentional reality?</Text>
-                    <Button label="IM READY"   variant="cta"   onPress={() => navigation.navigate("Home")} />
+                    <Button label="IM READY"   variant="cta"   onPress={() => navigation.navigate("Initiate")} />
                 </Stack>
 
 
