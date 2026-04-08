@@ -1,47 +1,68 @@
-import { LineChart } from "react-native-chart-kit";
-import { Dimensions, View, Text } from "react-native";
+import React from 'react';
+import { LineChart } from 'react-native-chart-kit';
+import { Dimensions, View, Text, StyleSheet } from 'react-native';
+import colors from '../styles/colors';
+import typography from '../styles/typography';
+import { spacing, radius } from '../styles/spacing';
 
-const screenWidth = Dimensions.get("window").width;
+const screenWidth = Dimensions.get('window').width;
 
 const data = {
-  labels: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+  labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
-      data: [2, 5, 2, 8, 10, 3, 4], // The '8' and '10' create the spikes
-      color: (opacity = 1) => `rgba(20, 158, 168, ${opacity})`, 
-      strokeWidth: 3 
-    }
+      data: [2, 5, 2, 8, 10, 3, 4],
+      color: (opacity = 1) => `rgba(227, 195, 82, ${opacity})`,
+      strokeWidth: 3,
+    },
   ],
-  legend: ["Daily Intensity"] 
+  legend: ['Daily Intensity'],
 };
 
 const chartConfig = {
-  backgroundGradientFrom: "#ffffff",
-  backgroundGradientTo: "#ffffff",
-  decimalPlaces: 0, 
-  color: (opacity = 1) => `rgba(20, 158, 168, ${opacity})`,
-  labelColor: (opacity = 1) => `rgba(100, 116, 139, ${opacity})`,
+  backgroundGradientFrom: colors.bg,
+  backgroundGradientTo: colors.bg,
+  decimalPlaces: 0,
+  color: (opacity = 1) => `rgba(227, 195, 82, ${opacity})`,
+  labelColor: (opacity = 1) => `rgba(248, 248, 248, ${opacity})`,
   propsForDots: {
-    r: "6",
-    strokeWidth: "2",
-    stroke: "#ffffff"
-  }
+    r: '6',
+    strokeWidth: '2',
+    stroke: colors.bg,
+  },
 };
 
 export default function SpikesGraph() {
   return (
-    <View className="bg-white p-4 rounded-3xl border border-gray-100 my-4">
-      <Text className="text-lg font-bold mb-4">Activity Spikes</Text>
+    <View style={styles.container}>
+      {/* <Text style={[typography.h2, styles.title]}>Activity Spikes</Text> */}
       <LineChart
         data={data}
-        width={screenWidth - 64}
+        width={screenWidth - spacing.xl * 1}
         height={220}
         chartConfig={chartConfig}
-        bezier // This makes the spikes look smooth/curvy
+        bezier
         style={{
-          borderRadius: 16
+          borderRadius: radius.lg,
+          marginLeft: -34,
         }}
       />
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.neutral,
+    padding: spacing.md,
+    borderRadius: radius.xl,
+    marginVertical: spacing.md,
+  },
+  title: {
+    marginBottom: spacing.md,
+    color: colors.neutral,
+  },
+  chart: {
+    borderRadius: radius.lg,
+  },
+});

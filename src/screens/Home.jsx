@@ -10,11 +10,14 @@ import Button from '../components/Buttons';
 import colors from '../styles/colors';
 import Navbar from '../components/Navbar';
 import ActivityGraph from '../components/ContriGraph';
+import SpikesGraph from '../components/LineChart';
+import Header from '../components/Header';
 
 
 function Home() {
   return (
     <View style={styles.container}>
+        <Header/>
         <ScrollVertical>
 
             {/* Introduction Hero Section */}
@@ -26,12 +29,17 @@ function Home() {
 
             {/* Activity Heatmap  */}
             <Stack size='lg' style={layout.cardMd}>
-                <Text style={typography.h2}>Activity Heat Map</Text>
-                {/* <Text style={typography.body}>Current Week</Text> */}
-                {/* <Text style={typography.body}>Average Baselin</Text> */}
-                <ActivityGraph/>
+                <SpikesGraph/>
             </Stack>
-            
+
+            {/* Activity Heatmap  */}
+            <Stack size='lg' style={layout.cardMd}>
+                <Text style={typography.h2}>Activity Heat Map</Text>
+                <Text style={typography.body}>Your annual pulse</Text>
+                <ActivityGraph/>Something about the graph
+                <Text style={typography.body}>Average Baseline</Text>
+            </Stack>
+
             {/* Equilibrium Radar*/}
             <Stack size='lg' style={layout.cardMdTertiary}>
                 <Text style={typography.h2}>Equilibrium Radar</Text>
