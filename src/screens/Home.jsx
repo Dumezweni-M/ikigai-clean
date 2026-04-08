@@ -40,7 +40,7 @@ function Home() {
             <Stack size='lg' style={layout.cardMd}>
                 <Text style={typography.h2}>Activity Heat Map</Text>
                 <Text style={typography.body}>Your annual pulse</Text>
-                <ActivityGraph/>Something about the graph
+                <ActivityGraph/>
                 <Text style={typography.body}>Average Baseline</Text>
             </Stack>
 
