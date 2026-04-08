@@ -28,8 +28,8 @@ function Home() {
                 <Text style={typography.body}>Flow state achieved in 16 consecutive sessions. Balance is reaching optimal equilibrium</Text>
             </Stack>
 
-
-            <Stack size='lg' style={layout.cardLg}>
+            {/* Meditation Timer */}
+            <Stack size='lg' style={layout.cardMd}>
                 <Text style={typography.label}>State of Mind</Text>
                 <Text style={typography.h1}>DEEP WORK: Meditation</Text>
                 <Text style={typography.body}>Lets take a  moment to center ourselves</Text>
