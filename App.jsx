@@ -6,7 +6,8 @@ import { View, Text, StyleSheet } from 'react-native';
 function App() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Hello. I'm here.</Text>
+      <Text className="text-2xl">Hello. I'm here.</Text>
+      <Text className="text-4xl">Hello. I'm here.</Text>
     </View>
   );
 }
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '',
   },
   text: {
     fontSize: 24,
