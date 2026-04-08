@@ -28,7 +28,10 @@ function Home() {
             </Stack>
 
             {/* Activity Heatmap  */}
+            {/* Intesity Frequency  */}
+            
             <Stack size='lg' style={layout.cardMd}>
+                <Text style={typography.h2}>Flow State</Text>
                 <SpikesGraph/>
             </Stack>
 
@@ -56,13 +59,6 @@ function Home() {
                 <Button label="ENTER THE VOID"   variant="primary"   onPress={() => {}} />
             </Stack>
 
-            {/* Intesity Frequency  */}
-            <Stack size='lg' style={layout.cardMdTertiary}>
-                <Text style={typography.h2}>Intensity Frequency</Text>
-                <Text style={typography.body}>Current Week</Text>
-                <Text style={typography.body}>Average Baseline</Text>
-                <Text style={typography.body}>Bar Graph Window</Text>
-            </Stack>
 
         </ScrollVertical>
         <Navbar/>
