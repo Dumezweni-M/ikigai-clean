@@ -7,6 +7,9 @@ import layout from '../styles/layout';
 import ScrollVertical from '../components/ScrollVertical';
 import Stack from '../components/Stack';
 import Button from '../components/Buttons';
+import colors from '../styles/colors';
+import Navbar from '../components/Navbar';
+import ActivityGraph from '../components/ContriGraph';
 
 
 function Home() {
@@ -21,6 +24,14 @@ function Home() {
                 <Text style={typography.body}>Flow state achieved in 16 consecutive sessions. Balance is reaching optimal equilibrium</Text>
             </Stack>
 
+            {/* Activity Heatmap  */}
+            <Stack size='lg' style={layout.cardMd}>
+                <Text style={typography.h2}>Activity Heat Map</Text>
+                {/* <Text style={typography.body}>Current Week</Text> */}
+                {/* <Text style={typography.body}>Average Baselin</Text> */}
+                <ActivityGraph/>
+            </Stack>
+            
             {/* Equilibrium Radar*/}
             <Stack size='lg' style={layout.cardMdTertiary}>
                 <Text style={typography.h2}>Equilibrium Radar</Text>
@@ -36,8 +47,17 @@ function Home() {
                 <Text style={typography.h1}>05:00 MINS</Text>
                 <Button label="ENTER THE VOID"   variant="primary"   onPress={() => {}} />
             </Stack>
-            
+
+            {/* Intesity Frequency  */}
+            <Stack size='lg' style={layout.cardMdTertiary}>
+                <Text style={typography.h2}>Intensity Frequency</Text>
+                <Text style={typography.body}>Current Week</Text>
+                <Text style={typography.body}>Average Baseline</Text>
+                <Text style={typography.body}>Bar Graph Window</Text>
+            </Stack>
+
         </ScrollVertical>
+        <Navbar/>
     </View>
   );
 }
@@ -45,13 +65,7 @@ function Home() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '',
-    padding: 20,
-  },
-  text: {
-    fontSize: 24,
+    backgroundColor: colors.bg,
   },
 });
 
