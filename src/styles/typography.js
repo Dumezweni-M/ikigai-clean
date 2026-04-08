@@ -14,7 +14,7 @@ const typography = StyleSheet.create({
   },
   h2: {
     fontFamily: 'InterTight-ExtraBold',
-    fontSize: 24,
+    fontSize: 34,
     fontWeight: '800',
     letterSpacing: -0.02 * 24,
     textTransform: 'uppercase',
