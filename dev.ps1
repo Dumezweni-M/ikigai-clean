@@ -1,7 +1,26 @@
-# dev.ps1
+
 param (
   [string]$command
 )
+
+
+# Load .env at top of dev.ps1
+Get-Content .env | ForEach-Object {
+  if ($_ -match "^\s*([^#][^=]+)=(.+)$") {
+    [System.Environment]::SetEnvironmentVariable($matches[1].Trim(), $matches[2].Trim())
+  }
+}
+
+function Reconnect-Device {
+  $IP = if ($env:DEVICE_IP) { $env:DEVICE_IP } else { Read-Host "Enter device IP" }
+  $PORT = if ($env:DEVICE_PORT) { $env:DEVICE_PORT } else { Read-Host "Enter device port" }
+  adb connect "${IP}:${PORT}"
+  adb reverse tcp:8081 tcp:8081
+  Write-Host "Connected to ${IP}:${PORT}" -ForegroundColor Green
+}
+
+
+
 
 function Start-App {
   $env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-17.0.18.8-hotspot"

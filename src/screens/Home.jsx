@@ -12,11 +12,12 @@ import Navbar from '../components/Navbar';
 import ActivityGraph from '../components/ContriGraph';
 import SpikesGraph from '../components/LineChart';
 import Header from '../components/Header';
+import ScreenWrapper from '../components/ScreenWrapper';
 
 
 function Home() {
   return (
-    <View style={styles.container}>
+    <ScreenWrapper>
         <Header/>
         <ScrollVertical>
 
@@ -62,15 +63,8 @@ function Home() {
 
         </ScrollVertical>
         <Navbar/>
-    </View>
+    </ScreenWrapper>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: colors.bg,
-  },
-});
 
 export default Home;
