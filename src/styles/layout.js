@@ -40,7 +40,7 @@ cardMdTertiary: {
 cardSmTertiary: {
     marginVertical: spacing.xl,
     width: width,
-    height: height * 0.3,
+    height: height * 0.35,
     backgroundColor: colors.tertiary,
     padding: spacing.xl,
   },

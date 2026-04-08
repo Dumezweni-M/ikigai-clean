@@ -10,6 +10,7 @@ import Button from "../components/Buttons";
 import { Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../styles/colors";
+import { Heart, Gem, Globe, Banknote } from 'lucide-react-native';
 
 
 export default function Welcome() {
@@ -37,6 +38,7 @@ export default function Welcome() {
                 {/* Pillar 1 - Love */}
                 <Stack style={layout.cardSm}>
                     <Text style={typography.label}>Pillar 01</Text>
+                    <Heart size={30} color={colors.secondary} strokeWidth={1.5} />
                     <Text style={typography.h1}>Love</Text>
                     <Text style={typography.body}>The emotional foundation.</Text>
                     <Text style={typography.body}>Identifying the craft, people and environments that naturally resonate with your core identity.</Text>
@@ -45,6 +47,7 @@ export default function Welcome() {
                 {/* Pillar 2 - Skill */}
                 <Stack style={layout.cardSmTertiary}>
                     <Text style={typography.label}>Pillar 02</Text>
+                    <Gem size={30} color={colors.secondary} strokeWidth={1.5} />
                     <Text style={typography.h1}>Skill</Text>
                     <Text style={typography.body}>The technical discipline.</Text>
                     <Text style={typography.body}>Continuous refinement of your unique capabilities until mastery becomes your natural state.</Text>
@@ -52,6 +55,7 @@ export default function Welcome() {
                 {/* Pillar 3 - Need */}
                 <Stack style={layout.cardSm}>
                     <Text style={typography.label}>Pillar 03</Text>
+                    <Globe size={30} color={colors.secondary} strokeWidth={1.5} />
                     <Text style={typography.h1}>Need</Text>
                     <Text style={typography.body}>The societal bridge.</Text>
                     <Text style={typography.body}>Understanding how your mastery solves existing problems and creates value for the collective.</Text>
@@ -60,6 +64,7 @@ export default function Welcome() {
                 {/* Pillar 4 - Wealth */}
                 <Stack style={layout.cardSmTertiary}>
                     <Text style={typography.label}>Pillar 04</Text>
+                    <Banknote size={30} color={colors.secondary} strokeWidth={1.5} />
                     <Text style={typography.h1}>Wealth</Text>
                     <Text style={typography.body}>The sustainable energy.</Text>
                     <Text style={typography.body}>Ensuring your contribution is valued and provides the resources for continued growth.</Text>
