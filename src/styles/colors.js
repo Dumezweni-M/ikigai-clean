@@ -20,6 +20,12 @@ const colors = {
   border:    '#3A3A3A',
   white:     '#FFFFFF',
   black:     '#000000',
+
+  bluePrimary: '#3B82F6',
+  blueDark:   '#2563EB',
+  blueLight:  '#60A5FA',
+  blueSurface: '#1D4ED8',
+  blueMuted:  '#93C5FD'
 };
 
 export default colors;

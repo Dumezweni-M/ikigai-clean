@@ -21,10 +21,10 @@ const SpiderChart = () => {
 
   const pillars = [
     { label: "YOU", value: youValue, color: colors.secondary }, // Master Gold Ring
-    { label: "Physical", value: stats.physical, color: "rgba(0, 0, 0, 0.8)" },
-    { label: "Mental", value: stats.mental, color: "rgba(0, 0, 0, 0.6)" },
-    { label: "Social", value: stats.social, color: "rgba(0, 0, 0, 0.4)" },
-    { label: "Purpose", value: stats.purpose, color: "rgba(0, 0, 0, 0.2)" }
+    { label: "Love", value: stats.physical, color: "rgba(0, 0, 0, 0.8)" },
+    { label: "Skill", value: stats.mental, color: "rgba(0, 0, 0, 0.6)" },
+    { label: "Need", value: stats.social, color: "rgba(0, 0, 0, 0.4)" },
+    { label: "Wealth", value: stats.purpose, color: "rgba(0, 0, 0, 0.2)" }
   ];
 
   const data = {
@@ -47,10 +47,10 @@ const SpiderChart = () => {
     <View style={styles.outerContainer}>
       <ProgressChart
         data={data}
-        width={screenWidth - spacing.xl * 2}
-        height={240}
-        strokeWidth={12} // Thinner stroke to accommodate 5 rings
-        radius={28}
+        width={screenWidth - spacing.xl * 1}
+        height={260}
+        strokeWidth={15} // Thinner stroke to accommodate 5 rings
+        radius={45}
         chartConfig={chartConfig}
         hideLegend={true}
         withCustomBarColorFromData={true}

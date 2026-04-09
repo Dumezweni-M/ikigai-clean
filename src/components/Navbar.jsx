@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignItems: 'center',
-  backgroundColor: colors.neutral,
+  backgroundColor: colors.bg,
   paddingVertical: 20,
   borderTopWidth: 0.5,
   borderTopColor: colors.border,

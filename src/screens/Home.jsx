@@ -30,6 +30,13 @@ function Home() {
                 <Text style={typography.body}>Flow state achieved in 16 consecutive sessions. Balance is reaching optimal equilibrium</Text>
             </Stack>
 
+            {/* Weekly Flow State */}
+            <Stack size='lg' style={layout.cardMd}>
+                <Text style={typography.h2}>Flow State</Text>
+                <SpikesGraph/>
+            </Stack>
+
+
             {/* Equilibrium Radar*/}
             <Stack size='lg' style={layout.cardLgTertiary}>
                 <Text style={typography.label}>State of Mind</Text>
@@ -39,13 +46,9 @@ function Home() {
             </Stack>
             
             
-            <Stack size='lg' style={layout.cardMd}>
-                <Text style={typography.h2}>Flow State</Text>
-                <SpikesGraph/>
-            </Stack>
 
             {/* Activity Heatmap  */}
-            <Stack size='lg' style={layout.cardMd}>
+            <Stack size='lg' style={layout.cardMdTertiary}>
                 <Text style={typography.h2}>Activity Heat Map</Text>
                 <Text style={typography.body}>Your annual pulse</Text>
                 <ActivityGraph/>
