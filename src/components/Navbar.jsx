@@ -40,9 +40,9 @@ const styles = StyleSheet.create({
   justifyContent: 'space-around',
   alignItems: 'center',
   backgroundColor: colors.neutral,
-  paddingVertical: 16,
-  // borderTopWidth: 0.5,
-  // borderTopColor: colors.border,
+  paddingVertical: 20,
+  borderTopWidth: 0.5,
+  borderTopColor: colors.border,
   alignSelf: 'stretch',
 },
 item: {

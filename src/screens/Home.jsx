@@ -13,6 +13,8 @@ import ActivityGraph from '../components/ContriGraph';
 import SpikesGraph from '../components/LineChart';
 import Header from '../components/Header';
 import ScreenWrapper from '../components/ScreenWrapper';
+import SpiderChart from '../components/SpiderChart';
+
 
 
 function Home() {
@@ -28,8 +30,14 @@ function Home() {
                 <Text style={typography.body}>Flow state achieved in 16 consecutive sessions. Balance is reaching optimal equilibrium</Text>
             </Stack>
 
-            {/* Activity Heatmap  */}
-            {/* Intesity Frequency  */}
+            {/* Equilibrium Radar*/}
+            <Stack size='lg' style={layout.cardLgTertiary}>
+                <Text style={typography.label}>State of Mind</Text>
+                <Text style={typography.h2}>Equilibrium Radar</Text>
+                <SpiderChart/>
+                <Text style={typography.body}>Flow state achieved in 16 consecutive sessions. Balance is reaching optimal equilibrium</Text>
+            </Stack>
+            
             
             <Stack size='lg' style={layout.cardMd}>
                 <Text style={typography.h2}>Flow State</Text>
@@ -44,12 +52,6 @@ function Home() {
                 <Text style={typography.body}>Average Baseline</Text>
             </Stack>
 
-            {/* Equilibrium Radar*/}
-            <Stack size='lg' style={layout.cardMdTertiary}>
-                <Text style={typography.h2}>Equilibrium Radar</Text>
-                <Text style={typography.label}>State of Mind</Text>
-                <Text style={typography.body}>Flow state achieved in 16 consecutive sessions. Balance is reaching optimal equilibrium</Text>
-            </Stack>
 
             {/* Meditation Timer */}
             <Stack size='lg' style={layout.cardMd}>
