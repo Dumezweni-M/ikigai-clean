@@ -13,14 +13,14 @@ import colors from "../styles/colors";
 import PillarSelector from "../components/PillarSelector";
 import FrequencySelector from "../components/FrequencySelector";
 
-export default function Initiate() {
+export default function CreateHabit() {
     const Navigation = useNavigation();
     return (
         <ScreenWrapper>
             <Header/>
             <ScrollVertical>
                 <Stack size="lg" style={layout.cardMd}>
-                    <Text style={typography.h1}>What is your current pursuit?</Text>
+                    <Text style={typography.h1}>Feed Your Pillars</Text>
                     {/* <Text style={typography.body}>Share your current focus or area/s of interest.</Text> */}
 
                         <PillarSelector/>
@@ -38,7 +38,7 @@ export default function Initiate() {
 
 
                 {/* Select Frequency */}
-                <Stack size="md" style={layout.cardSm}>
+                <Stack size="xxl" style={layout.cardMd}>
                     <Text style={typography.h2}>Set your horizon</Text>
                         <FrequencySelector/>
                 </Stack>

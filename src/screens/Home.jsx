@@ -13,7 +13,7 @@ import ActivityGraph from '../components/ContriGraph';
 import SpikesGraph from '../components/LineChart';
 import Header from '../components/Header';
 import ScreenWrapper from '../components/ScreenWrapper';
-import SpiderChart from '../components/SpiderChart';
+import ProgressRings from '../components/ProgressRings';
 
 
 
@@ -26,8 +26,9 @@ function Home() {
             {/* Introduction Hero Section */}
             <Stack style={layout.cardSm}>
                 <Text style={typography.label}>State of Mind</Text>
-                <Text style={typography.h1}>3 of 4 pillars active</Text>
-                <Text style={typography.body}>Flow state achieved in 16 consecutive sessions. Balance is reaching optimal equilibrium</Text>
+                <Text style={typography.h1}>1 of 4 pillars active</Text>
+                <Text style={typography.body}>Flow is not a reward for hard work but the result of removing friction. If you can't focus, don't try harder, simplify the environment."</Text>
+                <Text style={typography.label}> It’s a design problem, not a character flaw</Text>
             </Stack>
 
             {/* Weekly Flow State */}
@@ -39,10 +40,10 @@ function Home() {
 
             {/* Equilibrium Radar*/}
             <Stack size='lg' style={layout.cardLgTertiary}>
-                <Text style={typography.label}>State of Mind</Text>
                 <Text style={typography.h2}>Equilibrium Radar</Text>
-                <SpiderChart/>
-                <Text style={typography.body}>Flow state achieved in 16 consecutive sessions. Balance is reaching optimal equilibrium</Text>
+                <Text style={typography.label}>"Where intention goes, energy flows."</Text>
+                <ProgressRings/>
+                <Text style={typography.body}>"Your energy is a finite currency. The pillars show where you're spending it."</Text>
             </Stack>
             
             

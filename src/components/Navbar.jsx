@@ -11,10 +11,10 @@ import Compass from 'lucide-react-native/dist/esm/icons/compass';
 
 const NavItems = [
   { name: 'Home', icon: Compass },
-  { name: 'Balance', icon: Scale },
-  { name: 'Growth', icon: Sprout },
-  { name: 'Flow', icon: Waves },
-  { name: 'Purpose', icon: Target },
+  { name: 'Love', icon: Scale },
+  { name: 'Skill', icon: Sprout },
+  { name: 'World', icon: Waves },
+  { name: 'Wealth', icon: Target },
 ];
 
 export default function Navbar() {

@@ -37,10 +37,10 @@ const typography = StyleSheet.create({
   },
   light: {
     fontFamily: 'InterTight-Light',
-    fontSize: 16,
+    fontSize: 20,
     fontWeight: '300',
     lineHeight: 16 * 1.6,
-    color: colors.textMuted,
+    color: colors.black,
   },
 });
 

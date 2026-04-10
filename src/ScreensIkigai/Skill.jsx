@@ -11,7 +11,6 @@ import { Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import colors from "../styles/colors";
 import PillarSelector from "../components/PillarSelector";
-import FrequencySelector from "../components/FrequencySelector";
 
 export default function Initiate() {
     const Navigation = useNavigation();
@@ -21,30 +20,22 @@ export default function Initiate() {
             <ScrollVertical>
                 <Stack size="lg" style={layout.cardMd}>
                     <Text style={typography.h1}>What is your current pursuit?</Text>
-                    {/* <Text style={typography.body}>Share your current focus or area/s of interest.</Text> */}
+                    <Text style={typography.body}>Share your current focus or area/s of interest.</Text>
 
-                        <PillarSelector/>
-
-                </Stack>
-                
-
-                {/* Select Pillars */}
-                <Stack size="md" style={layout.cardXsTertiary}>
-                        <Text style={typography.body}>Enter a Habit</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.border }}>
-                        <TextInput style={typography.body} placeholder="Enter your current pursuit..." />
+                        <TextInput style={typography.body} placeholder="" />
                     </View>
+
+                </Stack>
+                <Stack size="md" style={layout.cardSmTertiary}>
+                        <Text style={typography.body}>Select 1 or more pillars that align with your current pursuit:</Text>
+                        <PillarSelector/>
+                        
                 </Stack>
 
 
-                {/* Select Frequency */}
-                <Stack size="md" style={layout.cardSm}>
-                    <Text style={typography.h2}>Set your horizon</Text>
-                        <FrequencySelector/>
-                </Stack>
-
-
-                <Stack size="lg" style={layout.cardSmDark}>
+                <Stack size="lg" style={layout.cardSm}>
+                        <Text style={typography.body}>You can always add more interests later. Lets Proceed!</Text>
                         <Button label="Continue" variant="cta" onPress={() => Navigation.navigate("Home")} />    
                 </Stack>
 

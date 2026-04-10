@@ -11,12 +11,27 @@ const data = {
   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
   datasets: [
     {
-      data: [2, 5, 2, 8, 10, 3, 4],
-      color: (opacity = 1) => `rgba(227, 195, 82, ${opacity})`,
-      strokeWidth: 3,
+      data: [0, 0, 0, 0, 0, 0, 0],
+      color: (opacity = 1) => colors.secondary, // Intensity Gold
+      strokeWidth: 1,
+    },
+    {
+      data: [0, 0, 0, 0, 0, 0, 0],
+      color: (opacity = 1) => `rgba(248, 248, 248, ${opacity})`, // Neutral White
+      strokeWidth: 1,
+    },
+    {
+      data: [0, 0, 0, 0, 0, 0, 0],
+      color: (opacity = 1) => `rgba(160, 160, 160, ${opacity})`, // Muted Gray
+      strokeWidth: 1,
+    },
+    {
+      data: [0, 0, 0, 0, 0, 0, 0],
+      color: (opacity = 1) => `rgba(160, 160, 160, ${opacity})`, // Muted Gray
+      strokeWidth: 1,
     },
   ],
-  legend: ['Daily Intensity'],
+  legend: ['Love', 'Skill', 'World', 'Wealth'], // Match the order of datasets
 };
 
 const chartConfig = {
