@@ -20,7 +20,7 @@ export default function HabitCreate() {
             <Header/>
             <ScrollVertical>
                 <Stack size="lg" style={layout.cardMd}>
-                    <Text style={typography.h1}>Feed Your Pillars</Text>
+                    <Text style={typography.h1}>Select a pillar</Text>
                     {/* <Text style={typography.body}>Share your current focus or area/s of interest.</Text> */}
 
                         <PillarSelector/>
@@ -29,10 +29,10 @@ export default function HabitCreate() {
                 
 
                 {/* Select Pillars */}
-                <Stack size="md" style={layout.cardXsTertiary}>
-                        <Text style={typography.body}>Enter a Habit</Text>
+                <Stack size="md" style={layout.cardXs}>
+                        <Text style={typography.h2}>Manifest an Intention</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.border }}>
-                        <TextInput style={typography.body} placeholder="Enter your current pursuit..." />
+                        <TextInput style={typography.light} placeholder="Set your intention" />
                     </View>
                 </Stack>
 
