@@ -13,7 +13,7 @@ import colors from "../styles/colors";
 import PillarSelector from "../components/PillarSelector";
 import FrequencySelector from "../components/FrequencySelector";
 
-export default function CreateHabit() {
+export default function HabitCreate() {
     const Navigation = useNavigation();
     return (
         <ScreenWrapper>
@@ -45,7 +45,7 @@ export default function CreateHabit() {
 
 
                 <Stack size="lg" style={layout.cardSmDark}>
-                        <Button label="Continue" variant="cta" onPress={() => Navigation.navigate("Home")} />    
+                        <Button label="Activate" variant="cta" onPress={() => Navigation.navigate("Home")} />    
                 </Stack>
 
             </ScrollVertical>

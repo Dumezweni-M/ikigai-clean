@@ -35,6 +35,13 @@ const layout = StyleSheet.create({
     backgroundColor: colors.neutral,
     padding: spacing.xl,
   },
+  cardXxs: {
+    width: width,
+    height: height * 0.10,
+    justifyContent: 'center',
+    backgroundColor: colors.neutral,
+    padding: spacing.xl,
+  },
   cardLgTertiary: {
     width: width,
     height: height,

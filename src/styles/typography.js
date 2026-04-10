@@ -29,8 +29,8 @@ const typography = StyleSheet.create({
   },
   label: {
     fontFamily: 'InterTight-Bold',
-    fontSize: 10,
-    fontWeight: '700',
+    fontSize: 11,
+    fontWeight: '900',
     letterSpacing: 0.1 * 10,
     textTransform: 'uppercase',
     color: colors.black,
