@@ -30,7 +30,7 @@ export default function HabitCreate() {
 
                 {/* Select Pillars */}
                 <Stack size="md" style={layout.cardXs}>
-                        <Text style={typography.h2}>Manifest an Intention</Text>
+                        <Text style={typography.h2}>Add another intention</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.border }}>
                         <TextInput style={typography.light} placeholder="Set your intention" />
                     </View>
