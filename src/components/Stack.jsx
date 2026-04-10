@@ -9,7 +9,7 @@ const gaps = {
   xxl: 36,
 };
 
-export default function Stack({ children, size = 'md', gap, direction = 'column', style }) {
+export default function Stack({ children, size = 'sm', gap, direction = 'column', style }) {
   const resolvedGap = gap ?? gaps[size];
 
   return (
