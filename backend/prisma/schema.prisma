@@ -10,10 +10,33 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
   id    String @id @default(uuid())
   name  String
   email String @unique
+}
+
+
+
+model taskItems {
+  id          String   @id @default(cuid())
+  taskItem    String
+  pillar      String
+  intensity   Int
+  isChecked   Boolean  @default(false)
+  interval    String
+  createdAt   DateTime @default(now())
+
+  completions taskCompletions[]
+}
+
+model taskCompletions {
+  id          String   @id @default(cuid())
+  taskId      String
+  completedAt DateTime @default(now())
+
+  task        taskItems @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
