@@ -13,7 +13,6 @@ export default function SatisfactionSlide() {
   const [value, setValue] = useState(5);
 
   return (
-    <ScreenWrapper>
         <ScrollVertical>
             <View style={layout.cardXs}>
             <Text style={[typography.h2, {color: colors.black}]}>In this Moment</Text>
@@ -44,7 +43,6 @@ export default function SatisfactionSlide() {
             </View>
 
         </ScrollVertical>
-    </ScreenWrapper>
   );
 }
 

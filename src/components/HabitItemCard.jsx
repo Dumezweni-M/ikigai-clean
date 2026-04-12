@@ -38,10 +38,7 @@ export default function HabitItemCard() {
   };
 
   return (
-    <ScreenWrapper>
-
-
-      <ScrollVertical>
+      <View>
           <Stack size="" style={[layout.cardXxxs, { flexDirection :'row', justifyContent: 'space-between', alignItems: 'center' }]} >
           <Text style={typography.light}>Active Items</Text>
             <Text style={typography.label}> 4 Pending items</Text>
@@ -104,16 +101,7 @@ export default function HabitItemCard() {
         <Stack size="lg" style={layout.cardSm}>
           <SatisfactionSlide/>
         </Stack>
-
-        <Stack size="lg" style={layout.cardXs}>
-          <Button 
-            label="Confirm" 
-            variant="inverted" 
-            onPress={() => navigation.navigate("Home")} 
-          />
-        </Stack>
-      </ScrollVertical>
-    </ScreenWrapper>
+      </View>
   );
 }
 

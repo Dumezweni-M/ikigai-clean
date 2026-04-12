@@ -1,11 +1,18 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import colors from '../styles/colors';
+import Navbar from './Navbar';
+import Header from './Header';
+import ScrollVertical from './ScrollVertical';
 
 export default function ScreenWrapper({ children, style }) {
   return (
     <View style={[styles.container, style]}>
-      {children}
+      <Header/>
+      <ScrollVertical>
+        {children}
+      </ScrollVertical>
+      <Navbar/>
     </View>
   );
 }

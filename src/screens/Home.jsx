@@ -14,14 +14,15 @@ import SpikesGraph from '../components/LineChart';
 import Header from '../components/Header';
 import ScreenWrapper from '../components/ScreenWrapper';
 import ProgressRings from '../components/ProgressRings';
+import { useNavigation } from '@react-navigation/native';
 
 
 
 function Home() {
+    const Navigation = useNavigation();
+
   return (
-    <ScreenWrapper>
-        <Header/>
-        <ScrollVertical>
+    <ScreenWrapper>      
 
             {/* Introduction Hero Section */}
             <Stack style={layout.cardSm}>
@@ -56,19 +57,6 @@ function Home() {
                 <Text style={typography.body}>Average Baseline</Text>
             </Stack>
 
-
-            {/* Meditation Timer */}
-            <Stack size='lg' style={layout.cardMd}>
-                <Text style={typography.label}>State of Mind</Text>
-                <Text style={typography.h1}>DEEP WORK: Meditation</Text>
-                <Text style={typography.body}>Lets take a  moment to center ourselves</Text>
-                <Text style={typography.h1}>05:00 MINS</Text>
-                <Button label="ENTER THE VOID"   variant="primary"   onPress={() => {}} />
-            </Stack>
-
-
-        </ScrollVertical>
-        <Navbar/>
     </ScreenWrapper>
   );
 }

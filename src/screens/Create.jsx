@@ -12,12 +12,12 @@ import { useNavigation } from "@react-navigation/native";
 import colors from "../styles/colors";
 import PillarSelector from "../components/PillarSelector";
 import FrequencySelector from "../components/FrequencySelector";
+import Navbar from "../components/Navbar";
 
-export default function HabitCreate() {
+export default function Create() {
     const Navigation = useNavigation();
     return (
         <ScreenWrapper>
-            <Header/>
             <ScrollVertical>
                 <Stack size="lg" style={layout.cardMd}>
                     <Text style={typography.h1}>Select a pillar</Text>
@@ -49,7 +49,6 @@ export default function HabitCreate() {
                 </Stack>
 
             </ScrollVertical>
-
         </ScreenWrapper>
     )
 }

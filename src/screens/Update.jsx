@@ -5,6 +5,8 @@ import Slider from '@react-native-community/slider';
 import { Target, Check } from 'lucide-react-native';
 import { useState } from "react";
 
+
+import Navbar from "../components/Navbar";
 import ScreenWrapper from "../components/ScreenWrapper";
 import ScrollVertical from "../components/ScrollVertical";
 import Header from "../components/Header";
@@ -17,7 +19,7 @@ import layout from "../styles/layout";
 import colors from "../styles/colors";
 import { spacing } from "../styles/spacing";
 
-export default function HabitUpdate() {
+export default function Reflect() {
   const navigation = useNavigation();
   const [isChecked, setIsChecked] = useState(false);
   
@@ -30,7 +32,6 @@ const toggleIsChecked = () => {
   
   return (
     <ScreenWrapper>
-      <Header />
       <ScrollVertical>
         <Stack size="lg" style={layout.cardXs}>
           <Text style={typography.label}>April 21, 2026 - Tuesday</Text>
