@@ -43,6 +43,18 @@ const typeDefs = gql`
     taskCompletions: [TaskCompletion!]!
 
   }
+
+  type Mutation {
+    createTaskItem(
+      taskItem: String!
+      pillar: String!
+      intensity: Int!
+      interval: String!
+    ): TaskItem!
+  }
+
+
+
 `;
 
 
@@ -66,6 +78,20 @@ const resolvers = {
       return prisma.taskCompletions.findMany();
     }
   },
+
+  Mutation: {
+    createTaskItem: async (_, { taskItem, pillar, intensity, interval }) => {
+      return prisma.taskItems.create({
+        data: {
+          taskItem,
+          pillar,
+          intensity,
+          interval,
+        },
+      });
+    }
+  }
+
 };
 
 const server = new ApolloServer({
