@@ -12,28 +12,17 @@ const pillars = [
   { name: 'Wealth', icon: Target, key: 'wealth' },
 ];
 
-export default function PillarSelector({ onSelectionChange }) {
-  // Store selected keys in an array
-  const [selectedPillars, setSelectedPillars] = useState([]);
+export default function PillarSelector({ onSelect, current }) {
 
   const togglePillar = (key) => {
-    let newSelection;
-    if (selectedPillars.includes(key)) {
-      // Remove if already selected
-      newSelection = selectedPillars.filter(p => p !== key);
-    } else {
-      // Add if not selected
-      newSelection = [...selectedPillars, key];
-    }
-    
-    setSelectedPillars(newSelection);
-    if (onSelectionChange) onSelectionChange(newSelection);
+    if (onSelect) onSelect(key);
   };
 
   return (
     <View style={styles.grid}>
       {pillars.map((item) => {
-        const isActive = selectedPillars.includes(item.key);
+        // Compare current key to the selection for active state
+        const isActive = current === item.key;
         return (
           <TouchableOpacity
             key={item.key}

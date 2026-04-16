@@ -10,8 +10,10 @@ const client = new ApolloClient({
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <RootNavigator />
-    </NavigationContainer>
+    <ApolloProvider client={client}>
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </ApolloProvider>
   );
 }
