@@ -12,7 +12,11 @@ import { useNavigation } from "@react-navigation/native";
 import colors from "../styles/colors";
 import PillarSelector from "../components/PillarSelector";
 import FrequencySelector from "../components/FrequencySelector";
-import Navbar from "../components/Navbar";
+
+
+
+
+
 
 export default function Create() {
     const Navigation = useNavigation();
