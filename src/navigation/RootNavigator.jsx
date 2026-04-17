@@ -19,6 +19,7 @@ export default function RootNavigator() {
       <Stack.Screen name="Reflect" component={Reflect} />
       <Stack.Screen name="Catalysts" component={Catalysts} />
       <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="Update" component={Reflect} />
       {/* {/* <Stack.Screen name="World" component={World} /> */}
     </Stack.Navigator>
   );
