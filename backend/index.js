@@ -53,23 +53,41 @@ const resolvers = {
     },
 
     taskItems: async () => {
-      // Matches 'model taskItems' in schema.prisma
-      return prisma.taskItem.findMany({
+      const items = await prisma.taskItem.findMany({
+        orderBy: { 
+          createdAt: 'desc' 
+        },
         include: {
           completions: true,
         },
       });
+
+      return items.map((item) => ({
+        ...item,
+        // Convert Prisma DateTime to ISO String
+        createdAt: item.createdAt.toISOString(),
+        
+        // Map nested completions
+        completions: item.completions.map((c) => ({
+          ...c,
+          // Convert Prisma DateTime to ISO String
+          completedAt: c.completedAt.toISOString(),
+        })),
+      }));
     },
 
     taskCompletions: async () => {
-      // Matches 'model taskCompletions' in schema.prisma
-      return prisma.taskCompletion.findMany();
+      const completions = await prisma.taskCompletion.findMany();
+      return completions.map((c) => ({
+        ...c,
+        completedAt: c.completedAt.toISOString(),
+      }));
     }
   },
 
   Mutation: {
     createTaskItem: async (_, { taskItem, pillar, intensity, interval }) => {
-        return prisma.taskItem.create({
+      const newItem = await prisma.taskItem.create({
         data: {
           taskItem,
           pillar,
@@ -78,6 +96,12 @@ const resolvers = {
           isChecked: false,
         },
       });
+
+      return {
+        ...newItem,
+        createdAt: newItem.createdAt.toISOString(),
+        completions: [], 
+      };
     },
   }
 };

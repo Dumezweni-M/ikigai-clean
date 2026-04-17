@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery, gql } from "@apollo/client";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Slider from '@react-native-community/slider';
@@ -19,14 +20,39 @@ import layout from "../styles/layout";
 import colors from "../styles/colors";
 import { spacing } from "../styles/spacing";
 
+const GET_TASKS = gql`
+  query GetTasks {
+    taskItems {
+      id
+      taskItem
+      pillar
+      intensity
+      isChecked
+      interval
+      createdAt
+      completions {
+        id
+        completedAt
+      }
+    }
+  }
+`;
+
 export default function Reflect() {
-  const navigation = useNavigation();
-  const [isChecked, setIsChecked] = useState(false);
+const navigation = useNavigation();
+  
   
 
 const toggleIsChecked = () => {
     setIsChecked(prev => !prev);
   };
+
+  const { loading, error, data } = useQuery(GET_TASKS);
+
+  if (loading) return <Text>Loading tasks...</Text>;
+  if (error) return <Text>Error: {error.message}</Text>;
+
+  const tasks = data.taskItems;
 
 
   
@@ -39,7 +65,8 @@ const toggleIsChecked = () => {
         </Stack>
 
         <Stack size="sm">
-            <HabitItemCard />
+          {/* Pass the real tasks here */}
+          <HabitItemCard tasks={tasks} /> 
         </Stack>
 
         <Stack size="lg" style={layout.cardXs}>
