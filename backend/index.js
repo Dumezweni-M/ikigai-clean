@@ -40,7 +40,9 @@ const typeDefs = gql`
       taskItem: String!,
       pillar: String!,
       intensity: Int!,
-      interval: String!
+      interval: String!,
+      duration: Int,
+      targetDays: Int
     ): TaskItem!
   }
 `;
@@ -86,22 +88,29 @@ const resolvers = {
   },
 
   Mutation: {
-    createTaskItem: async (_, { taskItem, pillar, intensity, interval }) => {
-      const newItem = await prisma.taskItem.create({
-        data: {
-          taskItem,
-          pillar,
-          intensity,
-          interval,
-          isChecked: false,
-        },
-      });
+    createTaskItem: async (_, { taskItem, pillar, intensity, interval, duration, targetDays }) => {
+      try {
 
-      return {
-        ...newItem,
-        createdAt: newItem.createdAt.toISOString(),
-        completions: [], 
-      };
+        const newItem = await prisma.taskItem.create({
+          data: {
+            taskItem,
+            pillar,
+            intensity,
+            interval,
+            duration,
+            targetDays,
+            isChecked: false,
+          },
+        });
+        return {
+          ...newItem,
+          createdAt: newItem.createdAt.toISOString(),
+          completions: [], 
+        };
+      } catch (error) {
+        console.error ( "Failed to create a mutation", error)
+      }
+
     },
   }
 };

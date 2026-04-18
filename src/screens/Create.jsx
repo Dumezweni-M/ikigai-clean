@@ -24,16 +24,13 @@ const CREATE_TASK = gql`
   }
 `;
 
-
-
-
-
-
 export default function Create() {
     const Navigation = useNavigation();
 
     const [pillar, setPillar] = useState(null)
     const [intention, setIntention] = useState("")
+    const [duration, setDuration] = useState("")
+    const [targetDays, setTargetDays] = useState("")
     const [frequency, setFrequency] = useState("Daily")
 
     const [addTask, { loading, error }] = useMutation(CREATE_TASK, {

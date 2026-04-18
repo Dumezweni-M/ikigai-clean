@@ -4,17 +4,25 @@ import typography from '../styles/typography';
 import { useQuery } from "@apollo/client";
 import { GET_TASKS } from "../graphql/queries";
 
-export default function ActivePillarHero () {
+export default function ActivePillarHero() {
     const { data, loading } = useQuery(GET_TASKS)
 
     const tasks = data?.taskItems || [];
-    const activePillarsCount = new Set(
-    tasks
-      .filter(t => t.pillar) // Ensure the pillar exists to avoid errors
-      .map(t => t.pillar.trim().toLowerCase())
-    ).size;
 
-    console.log("Unique Pillars detected:", Array.from(new Set(tasks.map(t => t.pillar?.trim().toLowerCase()))));
+    // 1. Create the Tally (Frequency Map)
+    const pillarFrequencies = tasks.reduce((acc, t) => {
+        if (t.pillar) {
+            const name = t.pillar.trim().toLowerCase();
+            acc[name] = (acc[name] || 0) + 1;
+        }
+        return acc;
+    }, {});
+
+    // 2. Calculate unique count from the keys of our tally
+    const activePillarsCount = Object.keys(pillarFrequencies).length;
+
+    // 3. Debugging logs
+    console.log("Detailed Breakdown:", pillarFrequencies);
 
     // Purely for debuggin purposes
     // const pillarDetails = tasks.reduce((acc, task) => {

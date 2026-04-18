@@ -5,7 +5,7 @@ import colors from '../styles/colors';
 import typography from '../styles/typography';
 import { spacing, radius } from '../styles/spacing';
 
-const pillars = [
+const intervals = [
   { name: 'Daily', icon: Heart, key: 'daily' },
   { name: 'Weekly', icon: Zap, key: 'weekly' },
   { name: 'Monthly', icon: Shield, key: 'monthly' },
@@ -15,7 +15,7 @@ export default function FrequencySelector({ onSelectionChange }) {
   // Store a single selected key or null
   const [selectedInterval, setSelectedInterval] = useState(null);
 
-  const togglePillar = (key) => {
+  const toggleInitervalPillar = (key) => {
     // If clicking the same one, deselect it; otherwise, select the new one
     const newSelection = selectedInterval === key ? null : key;
     
@@ -25,7 +25,7 @@ export default function FrequencySelector({ onSelectionChange }) {
 
   return (
     <View style={styles.grid}>
-      {pillars.map((item) => {
+      {intervals.map((item) => {
         // Simple equality check for active state
         const isActive = selectedInterval === item.key;
         return (

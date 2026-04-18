@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Slider from '@react-native-community/slider';
-import { Heart, Zap, Shield } from 'lucide-react-native';
+import { Watch, Calendar, List } from 'lucide-react-native';
 import colors from '../styles/colors';
 import typography from '../styles/typography';
 import { spacing, radius } from '../styles/spacing';
 
-const pillars = [
-  { name: 'Daily', icon: Heart, key: 'daily' },
-  { name: 'Weekly', icon: Zap, key: 'weekly' },
-  { name: 'Monthly', icon: Shield, key: 'monthly' },
+const targetDays = [
+  { name: 'Daily', icon: Watch, key: 'daily' },
+  { name: 'Weekly', icon: List, key: 'weekly' },
+  { name: 'Monthly', icon: Calendar, key: 'monthly' },
 ];
 
 export default function FrequencySelector({ onSelectionChange, onValueChange }) {
@@ -18,36 +18,45 @@ export default function FrequencySelector({ onSelectionChange, onValueChange }) 
   const [minutes, setMinutes] = useState(15);
   const [days, setDays] = useState(3);
 
-  const togglePillar = (key) => {
-    const newSelection = selectedInterval === key ? null : key;
-    setSelectedInterval(newSelection);
-    if (onSelectionChange) onSelectionChange(newSelection);
+  const toggleTargetDays = (key) => {
+  const newSelection = selectedInterval === key ? null : key;
+  setSelectedInterval(newSelection);
+  
+  // Default Days on Sliders
+  if (key === 'weekly') setDays(3);
+  if (key === 'monthly') setDays(15);
+  
+  if (onSelectionChange) onSelectionChange(newSelection);
   };
 
   // Sync values to parent
   useEffect(() => {
-    if (onValueChange) {
-      const value = selectedInterval === 'daily' ? { hours, minutes } : { days };
-      onValueChange(value);
+    if (onValueChange && selectedInterval) {
+      const payload = {
+        interval: selectedInterval.charAt(0).toUpperCase() + selectedInterval.slice(1), // "Daily", "Weekly", "Monthly"
+        duration: selectedInterval === 'daily' ? (hours * 60) + minutes : null,
+        targetDays: selectedInterval !== 'daily' ? days : null,
+      };
+      onValueChange(payload);
     }
   }, [hours, minutes, days, selectedInterval]);
 
   return (
     <View style={styles.container}>
       <View style={styles.grid}>
-        {pillars.map((item) => {
+        {targetDays.map((item) => {
           const isActive = selectedInterval === item.key;
           return (
             <TouchableOpacity
               key={item.key}
               style={[styles.card, isActive && styles.cardActive]}
-              onPress={() => togglePillar(item.key)}
+              onPress={() => toggleTargetDays(item.key)}
               activeOpacity={0.8}
             >
               <item.icon 
                 size={22} 
                 color={isActive ? colors.primary : colors.secondary} 
-                strokeWidth={2.5} 
+                strokeWidth={2} 
               />
               <Text style={[typography.label, styles.label, { color: isActive ? colors.primary : colors.text }]}>
                 {item.name}
@@ -83,8 +92,8 @@ export default function FrequencySelector({ onSelectionChange, onValueChange }) 
           <Slider
             style={styles.slider}
             minimumValue={0}
-            maximumValue={59}
-            step={1}
+            maximumValue={55}
+            step={5}
             value={minutes}
             onValueChange={setMinutes}
             minimumTrackTintColor={colors.primary}

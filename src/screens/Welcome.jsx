@@ -17,8 +17,7 @@ export default function Welcome() {
     const navigation = useNavigation();
 
     return (
-       <ScreenWrapper>
-        <Header/>
+    //    <ScreenWrapper>
             <ScrollVertical>
 
 
@@ -36,39 +35,44 @@ export default function Welcome() {
                 </Stack>
 
                 {/* Pillar 1 - Love */}
-                <Stack style={layout.cardSm}>
+                <Stack style={layout.cardMd}>
                     <Text style={typography.label}>Pillar 01</Text>
                     <Heart size={30} color={colors.secondary} strokeWidth={1.5} />
                     <Text style={typography.h1}>Love</Text>
+                    <Text style={typography.h2}>Passion & Mission</Text>
                     <Text style={typography.body}>The emotional foundation.</Text>
                     <Text style={typography.body}>Identifying the craft, people and environments that naturally resonate with your core identity.</Text>
                 </Stack>
 
                 {/* Pillar 2 - Skill */}
-                <Stack style={layout.cardSmTertiary}>
+                <Stack style={layout.cardMdTertiary}>
                     <Text style={typography.label}>Pillar 02</Text>
                     <Gem size={30} color={colors.secondary} strokeWidth={1.5} />
                     <Text style={typography.h1}>Skill</Text>
+                    <Text style={typography.h2}>Passion & Profession</Text>
                     <Text style={typography.body}>The technical discipline.</Text>
                     <Text style={typography.body}>Continuous refinement of your unique capabilities until mastery becomes your natural state.</Text>
                 </Stack>
-                {/* Pillar 3 - Need */}
-                <Stack style={layout.cardSm}>
+                {/* Pillar 3 - Wealth */}
+                <Stack style={layout.cardMd}>
+                    <Text style={typography.label}>Pillar 04</Text>
+                    <Banknote size={30} color={colors.secondary} strokeWidth={1.5} />
+                    <Text style={typography.h1}>Wealth</Text>
+                    <Text style={typography.h2}>Profession & Vocation</Text>
+                    <Text style={typography.body}>The sustainable energy.</Text>
+                    <Text style={typography.body}>Ensuring your contribution is valued and provides the resources for continued growth.</Text>
+                </Stack>
+
+                {/* Pillar 4 - Need */}
+                <Stack style={layout.cardMdTertiary}>
                     <Text style={typography.label}>Pillar 03</Text>
                     <Globe size={30} color={colors.secondary} strokeWidth={1.5} />
-                    <Text style={typography.h1}>Need</Text>
+                    <Text style={typography.h1}>World Needs</Text>
+                    <Text style={typography.h2}>Mission & Vocation</Text>
                     <Text style={typography.body}>The societal bridge.</Text>
                     <Text style={typography.body}>Understanding how your mastery solves existing problems and creates value for the collective.</Text>
                 </Stack>
 
-                {/* Pillar 4 - Wealth */}
-                <Stack style={layout.cardSmTertiary}>
-                    <Text style={typography.label}>Pillar 04</Text>
-                    <Banknote size={30} color={colors.secondary} strokeWidth={1.5} />
-                    <Text style={typography.h1}>Wealth</Text>
-                    <Text style={typography.body}>The sustainable energy.</Text>
-                    <Text style={typography.body}>Ensuring your contribution is valued and provides the resources for continued growth.</Text>
-                </Stack>
 
                 {/* Call to action*/}
                 <Stack style={layout.cardMd}>
@@ -82,7 +86,7 @@ export default function Welcome() {
 
 
             </ScrollVertical>
-       </ScreenWrapper> 
+    //    </ScreenWrapper> 
     )
 };
 

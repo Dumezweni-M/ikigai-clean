@@ -10,7 +10,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("NEON_DB")
 }
 
 
@@ -20,9 +20,10 @@ model TaskItem {
   pillar      String
   intensity   Int
   isChecked   Boolean  @default(false)
-  interval    String
+  interval    String  
+  duration    Int?
+  targetDays  Int?
   createdAt   DateTime @default(now())
-
   completions TaskCompletion[]
 }
 
