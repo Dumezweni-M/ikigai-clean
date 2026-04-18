@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import Slider from '@react-native-community/slider';
 import { Target, Check } from 'lucide-react-native';
 import { useState } from "react";
+import { GET_TASKS } from "../graphql/queries.js"
 
 
 import Navbar from "../components/Navbar";
@@ -20,29 +21,12 @@ import layout from "../styles/layout";
 import colors from "../styles/colors";
 import { spacing } from "../styles/spacing";
 
-const GET_TASKS = gql`
-  query GetTasks {
-    taskItems {
-      id
-      taskItem
-      pillar
-      intensity
-      isChecked
-      interval
-      createdAt
-      completions {
-        id
-        completedAt
-      }
-    }
-  }
-`;
+
 
 export default function Reflect() {
 const navigation = useNavigation();
   
   
-
 const toggleIsChecked = () => {
     setIsChecked(prev => !prev);
   };
@@ -54,8 +38,6 @@ const toggleIsChecked = () => {
 
   const tasks = data.taskItems;
 
-
-  
   return (
     <ScreenWrapper>
       <ScrollVertical>
@@ -64,8 +46,9 @@ const toggleIsChecked = () => {
           <Text style={typography.h1}>Reflection</Text>
         </Stack>
 
+
+        {/* Passing of Habit Items list */}
         <Stack size="sm">
-          {/* Pass the real tasks here */}
           <HabitItemCard tasks={tasks} /> 
         </Stack>
 

@@ -15,6 +15,7 @@ import Header from '../components/Header';
 import ScreenWrapper from '../components/ScreenWrapper';
 import ProgressRings from '../components/ProgressRings';
 import { useNavigation } from '@react-navigation/native';
+import ActivePillarHero from '../components/ActivePillarHero';
 
 
 
@@ -26,10 +27,7 @@ function Home() {
 
             {/* Introduction Hero Section */}
             <Stack style={layout.cardSm}>
-                <Text style={typography.label}>State of Mind</Text>
-                <Text style={typography.h1}>1 of 4 pillars active</Text>
-                <Text style={typography.body}>Flow is not a reward for hard work but the result of removing friction. If you can't focus, don't try harder, simplify the environment."</Text>
-                <Text style={typography.label}> It’s a design problem, not a character flaw</Text>
+                <ActivePillarHero/>
             </Stack>
 
             {/* Weekly Flow State */}

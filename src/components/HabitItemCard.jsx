@@ -4,12 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import Slider from '@react-native-community/slider';
 import { Target, Check, Heart, Briefcase, Users } from 'lucide-react-native';
 
-import ScreenWrapper from "./ScreenWrapper";
-import ScrollVertical from "./ScrollVertical";
-import Header from "./Header";
 import Stack from "./Stack";
-import Button from "./Buttons";
-import SatisfactionSlide from "./SatisfactionSlide";
 
 import typography from "../styles/typography";
 import layout from "../styles/layout";
@@ -24,7 +19,7 @@ const PILLAR_ICONS = {
   "WORLD": Users,
 };
 
-export default function HabitItemCard({ tasks }) { // Accept the prop here
+export default function HabitItemCard({ tasks }) { 
   const [checkedItems, setCheckedItems] = useState({});
 
   const toggleIsChecked = (id) => {
@@ -56,7 +51,7 @@ export default function HabitItemCard({ tasks }) { // Accept the prop here
                   <View style={styles.textGroup}>
                     {/* habit.taskItem is the field name in your DB */}
                     <Text style={typography.light}>{habit.taskItem}</Text> 
-                    <Text style={typography.label}>PILLAR: {habit.pillar}</Text>
+                    <Text style={typography.label}>Pillar: {habit.pillar}</Text>
                   </View>
                 </View>
 
@@ -71,10 +66,10 @@ export default function HabitItemCard({ tasks }) { // Accept the prop here
               </View>
 
               <View style={styles.sliderRow}>
-                <Text style={typography.label}>INTENSITY 1-10</Text>
+                <Text style={typography.label}>INTENSITY {habit.intensity}/10</Text>
                 <Slider
                   style={styles.slider}
-                  value={habit.intensity} // Use the intensity from your DB!
+                  value={habit.intensity} 
                   disabled={isChecked}
                   minimumValue={1}
                   maximumValue={10}
