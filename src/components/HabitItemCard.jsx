@@ -19,11 +19,36 @@ const PILLAR_ICONS = {
   "WORLD": Users,
 };
 
-export default function HabitItemCard({ tasks }) { 
+export default function HabitItemCard({ tasks, onCompleteTask }) { 
   const [checkedItems, setCheckedItems] = useState({});
+  const [ localIntensities, setLocalIntensities ] = useState({})
 
   const toggleIsChecked = (id) => {
-    setCheckedItems(prev => ({ ...prev, [id]: !prev[id] }));
+    const newStatus = !checkedItems[id];
+    setCheckedItems(prev => ({ ...prev, [id]: newStatus }));
+
+    // Only fire the database sync when the user checks the item
+    if (newStatus && onComplete) {
+      const finalIntensity = localIntensities[id] ?? tasks.find(t => t.id === id).intensity;
+      onComplete(id, finalIntensity);
+    }
+  };
+
+  
+
+  const handleSliderChange = (id, value) => {
+    setLocalIntensities(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleToggle = (id) => {
+    const newCheckedState = !checkedItems[id];
+    setCheckedItems(prev => ({ ...prev, [id]: newCheckedState }));
+    
+    // ONLY send to DB if we are checking the item as 'true'
+    if (newCheckedState && onCompleteTask) {
+      const finalIntensity = localIntensities[id] || tasks.find(t => t.id === id).intensity;
+      onCompleteTask(id, finalIntensity);
+    }
   };
 
   return (
@@ -36,8 +61,7 @@ export default function HabitItemCard({ tasks }) {
       {/* Map through the passed-in tasks instead of HABIT_DATA */}
       {tasks.map((habit) => {
         const isChecked = checkedItems[habit.id] || false;
-        
-        // Select icon based on the pillar string from DB, fallback to Target
+        const displayIntensity = localIntensities[habit.id] ?? habit.intensity;
         const HabitIcon = PILLAR_ICONS[habit.pillar] || Target;
 
         return (
@@ -66,7 +90,7 @@ export default function HabitItemCard({ tasks }) {
               </View>
 
               <View style={styles.sliderRow}>
-                <Text style={typography.label}>INTENSITY {habit.intensity}/10</Text>
+                <Text style={typography.label}>Fulfilment {displayIntensity}/10</Text>
                 <Slider
                   style={styles.slider}
                   value={habit.intensity} 
@@ -74,6 +98,9 @@ export default function HabitItemCard({ tasks }) {
                   minimumValue={1}
                   maximumValue={10}
                   step={1}
+                  onValueChange={(val) => handleSliderChange(habit.id, val)}
+                  minimumTrackTintColor={colors.secondary}
+                  thumbTintColor={colors.secondary}
                 />
               </View>
             </View>

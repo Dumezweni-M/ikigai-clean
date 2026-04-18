@@ -17,8 +17,8 @@ import FrequencySelector from "../components/FrequencySelector";
 
 
 const CREATE_TASK = gql`
-  mutation CreateTask($taskItem: String!, $pillar: String!, $intensity: Int!, $interval: String!) {
-    createTaskItem(taskItem: $taskItem, pillar: $pillar, intensity: $intensity, interval: $interval) {
+  mutation CreateTask($taskItem: String!, $pillar: String!, $intensity: Int!, $interval: String!, $duration: Int, $targetDays: Int) {
+    createTaskItem(taskItem: $taskItem, pillar: $pillar, intensity: $intensity, interval: $interval, duration: $duration, targetDays: $targetDays) {
       id
     }
   }
@@ -32,6 +32,12 @@ export default function Create() {
     const [duration, setDuration] = useState("")
     const [targetDays, setTargetDays] = useState("")
     const [frequency, setFrequency] = useState("Daily")
+
+    const handleFrequencyData = (data) => {
+    setFrequency(data.interval);
+    setDuration(data.duration);
+    setTargetDays(data.targetDays);
+    };
 
     const [addTask, { loading, error }] = useMutation(CREATE_TASK, {
         onCompleted: () => {
@@ -59,7 +65,9 @@ export default function Create() {
                 taskItem: intention,
                 pillar: pillar || pillar,
                 intensity: 1,
-                interval: frequency
+                interval: frequency,
+                duration: duration,
+                targetDays: targetDays
             }
         });
     };
@@ -92,7 +100,9 @@ export default function Create() {
                 {/* Select Frequency */}
                 <Stack size="xxl" style={layout.cardMd}>
                     <Text style={typography.h2}>Set your horizon</Text>
-                    <FrequencySelector onSelect={setFrequency} current={frequency} />
+                    <FrequencySelector
+                        onSelect={setFrequency}
+                        onValueChange={handleFrequencyData} />
                 </Stack>
 
                 {/* Add to list */}
