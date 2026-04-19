@@ -40,17 +40,13 @@ function Home() {
                 <ActivePillarHero/>
             </Stack>
             
-            <Stack size='lg' style={layout.cardMdDark}>
-                <Text style={[typography.h2, { color: colors.white }]}>Activity Heat Map</Text>
-                <Text style={[typography.body, { color: colors.white }]}>Your annual pulse</Text>
-                <ActivityGraph/>
-            </Stack>
 
             {/* Weekly Flow State */}
             <Stack size='lg' style={layout.cardMd}>
                 <Text style={typography.h2}>Flow State</Text>
                 <SpikesGraph completions={data?.taskCompletions} />
             </Stack>
+
 
             {/* Equilibrium Radar*/}
             <Stack size='lg' style={layout.cardLgTertiary}>
@@ -63,6 +59,12 @@ function Home() {
             
 
             {/* Activity Heatmap  */}
+
+            <Stack size='lg' style={layout.cardMdDark}>
+                <Text style={[typography.h2, { color: colors.white }]}>Activity Heat Map</Text>
+                <Text style={[typography.body, { color: colors.white }]}>Your annual pulse</Text>
+                <ActivityGraph/>
+            </Stack>
 
     </ScreenWrapper>
   );
