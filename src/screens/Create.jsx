@@ -1,3 +1,4 @@
+import { CREATE_TASK } from '../graphql/mutations'
 import React from "react";
 import { Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -15,14 +16,6 @@ import PillarSelector from "../components/PillarSelector";
 import FrequencySelector from "../components/FrequencySelector";
 
 
-
-const CREATE_TASK = gql`
-  mutation CreateTask($taskItem: String!, $pillar: String!, $intensity: Int!, $interval: String!, $duration: Int, $targetDays: Int) {
-    createTaskItem(taskItem: $taskItem, pillar: $pillar, intensity: $intensity, interval: $interval, duration: $duration, targetDays: $targetDays) {
-      id
-    }
-  }
-`;
 
 export default function Create() {
     const Navigation = useNavigation();

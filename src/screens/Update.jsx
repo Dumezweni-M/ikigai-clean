@@ -1,11 +1,12 @@
 import React from "react";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, useMutation, gql } from "@apollo/client";
+import { GET_TASKS } from "../graphql/queries.js"
+import { COMPLETE_TASK } from "../graphql/mutations.js"
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Slider from '@react-native-community/slider';
 import { Target, Check } from 'lucide-react-native';
 import { useState } from "react";
-import { GET_TASKS } from "../graphql/queries.js"
 
 
 import Navbar from "../components/Navbar";
@@ -25,7 +26,15 @@ import { spacing } from "../styles/spacing";
 
 export default function Reflect() {
 const navigation = useNavigation();
-  
+
+
+const [completeTask] = useMutation(COMPLETE_TASK, {
+    refetchQueries: [{ query: GET_TASKS }], // Refreshes the list automatically
+    onCompleted: () => console.log("Task successfully updated in Neon!"),
+    onError: (err) => console.error("Mutation error:", err.message),
+  });
+
+
   
 const toggleIsChecked = () => {
     setIsChecked(prev => !prev);
@@ -50,7 +59,19 @@ const toggleIsChecked = () => {
 
         {/* Passing of Habit Items list */}
         <Stack size="sm">
-          <HabitItemCard tasks={tasks} /> 
+          <HabitItemCard
+            // toggleIsChecked={toggleIsChecked}
+            tasks={tasks}
+            onComplete={(id, intensity) => {
+              console.log(`Task ID: ${id}, Intensity: ${intensity}`);
+              completeTask({
+              variables: {
+                taskId: id,
+                intensity: intensity
+              }
+            });
+            }} 
+          />
         </Stack>
 
         <Stack size="lg" style={layout.cardXs}>

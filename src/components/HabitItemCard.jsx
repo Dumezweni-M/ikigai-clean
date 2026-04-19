@@ -19,7 +19,7 @@ const PILLAR_ICONS = {
   "WORLD": Users,
 };
 
-export default function HabitItemCard({ tasks, onCompleteTask }) { 
+export default function HabitItemCard({ tasks, onComplete }) { 
   const [checkedItems, setCheckedItems] = useState({});
   const [ localIntensities, setLocalIntensities ] = useState({})
 

@@ -27,6 +27,7 @@ const typeDefs = gql`
     id: ID!
     taskId: String!
     completedAt: String!
+    intensity: Int!
   }
 
   type Query {
@@ -44,6 +45,8 @@ const typeDefs = gql`
       duration: Int,
       targetDays: Int
     ): TaskItem!
+
+    completeTask(taskId: String!, intensity: Int!): TaskCompletion!
   }
 `;
 
@@ -56,8 +59,8 @@ const resolvers = {
 
     taskItems: async () => {
       const items = await prisma.taskItem.findMany({
-        orderBy: { 
-          createdAt: 'desc' 
+        orderBy: {
+          createdAt: 'desc'
         },
         include: {
           completions: true,
@@ -68,7 +71,7 @@ const resolvers = {
         ...item,
         // Convert Prisma DateTime to ISO String
         createdAt: item.createdAt.toISOString(),
-        
+
         // Map nested completions
         completions: item.completions.map((c) => ({
           ...c,
@@ -105,13 +108,35 @@ const resolvers = {
         return {
           ...newItem,
           createdAt: newItem.createdAt.toISOString(),
-          completions: [], 
+          completions: [],
         };
       } catch (error) {
-        console.error ( "Failed to create a mutation", error)
+        console.error("Failed to create a mutation", error)
       }
 
     },
+
+
+    completeTask: async (_, { taskId, intensity }) => {
+
+        const completion = await prisma.taskCompletion.create({
+          data: {
+            taskId: taskId,
+            intensity: intensity,
+          },
+        });
+
+        await prisma.taskItem.update({
+          where: { id: taskId },
+          data: { isChecked: true }
+        });
+
+       return {
+      ...completion,
+        completedAt: completion.completedAt.toISOString(),
+      };
+      
+    }
   }
 };
 
