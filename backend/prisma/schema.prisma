@@ -32,6 +32,7 @@ model TaskCompletion {
   taskId      String
   completedAt DateTime @default(now())
   intensity   Int
+  pillar      String
 
   task        TaskItem @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }

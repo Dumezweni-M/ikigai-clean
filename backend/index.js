@@ -28,6 +28,7 @@ const typeDefs = gql`
     taskId: String!
     completedAt: String!
     intensity: Int!
+    pillar: String!   # Corrected case to lowercase 'p'
   }
 
   type Query {
@@ -69,13 +70,9 @@ const resolvers = {
 
       return items.map((item) => ({
         ...item,
-        // Convert Prisma DateTime to ISO String
         createdAt: item.createdAt.toISOString(),
-
-        // Map nested completions
         completions: item.completions.map((c) => ({
           ...c,
-          // Convert Prisma DateTime to ISO String
           completedAt: c.completedAt.toISOString(),
         })),
       }));
@@ -83,9 +80,11 @@ const resolvers = {
 
     taskCompletions: async () => {
       const completions = await prisma.taskCompletion.findMany();
+
       return completions.map((c) => ({
         ...c,
         completedAt: c.completedAt.toISOString(),
+        // pillar is now handled directly by the DB field
       }));
     }
   },
@@ -93,7 +92,6 @@ const resolvers = {
   Mutation: {
     createTaskItem: async (_, { taskItem, pillar, intensity, interval, duration, targetDays }) => {
       try {
-
         const newItem = await prisma.taskItem.create({
           data: {
             taskItem,
@@ -111,31 +109,42 @@ const resolvers = {
           completions: [],
         };
       } catch (error) {
-        console.error("Failed to create a mutation", error)
+        console.error("Failed to create a task item:", error);
       }
-
     },
 
-
     completeTask: async (_, { taskId, intensity }) => {
+      try {
+        // 1. Fetch parent task to get the pillar name
+        const parentTask = await prisma.taskItem.findUnique({
+          where: { id: taskId }
+        });
 
+        if (!parentTask) throw new Error("Task not found");
+
+        // 2. Create completion WITH the pillar field
         const completion = await prisma.taskCompletion.create({
           data: {
             taskId: taskId,
             intensity: intensity,
+            pillar: parentTask.pillar, // This satisfies the DB requirement
           },
         });
 
+        // 3. Mark the task as checked
         await prisma.taskItem.update({
           where: { id: taskId },
           data: { isChecked: true }
         });
 
-       return {
-      ...completion,
-        completedAt: completion.completedAt.toISOString(),
-      };
-      
+        return {
+          ...completion,
+          completedAt: completion.completedAt.toISOString(),
+        };
+      } catch (error) {
+        console.error("Mutation error:", error);
+        throw error;
+      }
     }
   }
 };

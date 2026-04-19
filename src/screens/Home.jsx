@@ -17,10 +17,20 @@ import ProgressRings from '../components/ProgressRings';
 import { useNavigation } from '@react-navigation/native';
 import ActivePillarHero from '../components/ActivePillarHero';
 
+import { useQuery } from '@apollo/client';
+import { GET_COMPLETIONS } from '../graphql/queries';
+
 
 
 function Home() {
     const Navigation = useNavigation();
+    const { data, loading } = useQuery(GET_COMPLETIONS);
+
+    if (data) {
+    console.log("RAW DATA FROM SERVER:", data);
+    }
+
+    if ( loading) return null; // Or a loading spinner
 
   return (
     <ScreenWrapper>      
@@ -33,7 +43,7 @@ function Home() {
             {/* Weekly Flow State */}
             <Stack size='lg' style={layout.cardMd}>
                 <Text style={typography.h2}>Flow State</Text>
-                <SpikesGraph/>
+                <SpikesGraph completions={data?.taskCompletions} />
             </Stack>
 
 

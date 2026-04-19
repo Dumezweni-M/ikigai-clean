@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { Heart, Zap, Shield, Target } from 'lucide-react-native';
+import { Heart, Zap, Shield, Target, Banknote } from 'lucide-react-native';
 import colors from '../styles/colors';
 import typography from '../styles/typography';
 import { spacing, radius } from '../styles/spacing';
@@ -8,8 +8,8 @@ import { spacing, radius } from '../styles/spacing';
 const pillars = [
   { name: 'Love', icon: Heart, key: 'love' },
   { name: 'Skill', icon: Zap, key: 'skill' },
+  { name: 'Wealth', icon: Banknote, key: 'wealth' },
   { name: 'World', icon: Shield, key: 'world' },
-  { name: 'Wealth', icon: Target, key: 'wealth' },
 ];
 
 export default function PillarSelector({ onSelect, current }) {
@@ -34,9 +34,9 @@ export default function PillarSelector({ onSelect, current }) {
             activeOpacity={0.8}
           >
             <item.icon 
-              size={22} 
+              size={30} 
               color={isActive ? colors.primary : colors.secondary} 
-              strokeWidth={2.5} 
+              strokeWidth={1.5} 
             />
             <Text style={[
               typography.label, 

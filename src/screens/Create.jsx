@@ -45,6 +45,7 @@ export default function Create() {
     });
 
     const handleActivate = () => {
+        console.log("DEBUG: Current Pillar State is:", pillar);
         // 1. Validation check
         if (!intention || intention.trim() === "") {
             console.log("Validation failed: No intention");

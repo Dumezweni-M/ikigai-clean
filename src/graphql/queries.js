@@ -17,3 +17,15 @@ export const GET_TASKS = gql`
     }
   }
 `;
+
+
+export const GET_COMPLETIONS = gql`
+  query GetCompletions {
+    taskCompletions {
+      id
+      completedAt
+      pillar
+      intensity
+    }
+  }
+`;
