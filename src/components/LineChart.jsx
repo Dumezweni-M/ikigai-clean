@@ -4,6 +4,7 @@ import { Dimensions, View, Text, StyleSheet } from 'react-native';
 import colors from '../styles/colors';
 import typography from '../styles/typography';
 import { spacing, radius } from '../styles/spacing';
+import { useState } from 'react';
 
 const screenWidth = Dimensions.get('window').width;
 
@@ -14,39 +15,13 @@ const chartConfig = {
   color: (opacity = 1) => `rgba(227, 195, 82, ${opacity})`,
   labelColor: (opacity = 1) => `rgba(248, 248, 248, ${opacity})`,
   propsForDots: {
-    r: '6',
-    strokeWidth: '2',
-    stroke: colors.bg,
+    r: '3',
+    strokeWidth: '0.5',
+    stroke: colors.tertiary,
   },
 };
 
 
-// const data = {
-//   labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-//   datasets: [
-//     {
-//       data: [0, 0, 0, 0, 0, 0, 0],
-//       color: (opacity = 1) => colors.secondary, // Intensity Gold
-//       strokeWidth: 1,
-//     },
-//     {
-//       data: [0, 0, 0, 0, 0, 0, 0],
-//       color: (opacity = 1) => `rgba(248, 248, 248, ${opacity})`, // Neutral White
-//       strokeWidth: 1,
-//     },
-//     {
-//       data: [0, 0, 0, 0, 0, 0, 0],
-//       color: (opacity = 1) => `rgba(160, 160, 160, ${opacity})`, // Muted Gray
-//       strokeWidth: 1,
-//     },
-//     {
-//       data: [0, 0, 0, 0, 0, 0, 0],
-//       color: (opacity = 1) => `rgba(160, 160, 160, ${opacity})`, // Muted Gray
-//       strokeWidth: 1,
-//     },
-//   ],
-//   legend: ['Love', 'Skill', 'World', 'Wealth'], // Match the order of datasets
-// };
 
 
 export default function SpikesGraph( {completions = []}) {
@@ -63,6 +38,7 @@ export default function SpikesGraph( {completions = []}) {
     const testCompletions = [{ completedAt: '2026-04-20', pillar: 'Love' }];
     // Initialize 7 days (Mon-Sun) for each pillar
     const counts = {
+      All: [0, 0, 0, 0, 0, 0, 0],
       Love: [0, 0, 0, 0, 0, 0, 0],
       Skill: [0, 0, 0, 0, 0, 0, 0],
       World: [0, 0, 0, 0, 0, 0, 0],
@@ -83,8 +59,11 @@ export default function SpikesGraph( {completions = []}) {
 
       if (counts[p]) {
         counts[p][dayIndex] += 1;
+        counts.All[dayIndex] += 1;
       }
     });
+
+    counts.All = counts.All.map(dayTotal => dayTotal / 4);
 
     return counts;
   };
@@ -95,6 +74,11 @@ export default function SpikesGraph( {completions = []}) {
   const data = {
     labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
     datasets: [
+      {
+        data: pillarData.All,
+        color: (opacity = 1) => colors.tertiary || '#E3C352', // Gold
+        strokeWidth: 2,
+      },
       {
         data: pillarData.Love,
         color: (opacity = 1) => colors.secondary || '#E3C352', // Gold
@@ -116,23 +100,54 @@ export default function SpikesGraph( {completions = []}) {
         strokeWidth: 1,
       },
     ],
-    legend: ['Love', 'Skill', 'World', 'Wealth'],
+    legend: ['All', 'Love', 'Skill', 'World', 'Wealth'],
+  };
+
+
+    const [activePillars, setActivePillars] = useState({
+    All: true,
+    Love: true,
+    Skill: true,
+    World: true,
+    Wealth: true,
+  });
+
+  // Toggle function
+  const togglePillar = (name) => {
+    setActivePillars(prev => ({
+      ...prev,
+      [name]: !prev[name]
+    }));
   };
 
   
   return (
     <View style={styles.container}>
+
+      <View style={styles.topDaysRow}>
+        {data.labels.map(day => <Text key={day} style={styles.dayText}>{day}</Text>)}
+      </View>
+
       <LineChart
         data={data}
-        width={screenWidth - spacing.xl * 1}
-        height={220}
+        width={screenWidth - 6}
+        // width={screenWidth + 50}
+        height={250}
+        segments={4}
         chartConfig={chartConfig}
         bezier
+        xLabelsOffset={10}
+        yLabelsOffset={30}
+        fromZero={true}
+        fromNumber={8}  // Can later be mapped out to match Hours per day ?
         style={{
-          borderRadius: radius.lg,
-          marginLeft: -34,
+          borderRadius: radius.sm,
+          // borderRadius: ,
+          marginLeft: -45,
         }}
       />
+      
+
     </View>
   );
 }
@@ -149,6 +164,16 @@ const styles = StyleSheet.create({
     color: colors.neutral,
   },
   chart: {
-    borderRadius: radius.lg,
+    borderRadius: radius.sm,
+  },
+  topDaysRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingHorizontal: 0, // Match chart offset
+    marginBottom: 10,
+    marginLeft: -22,
+    width: '120%',
+    borderColor: 'white', // Debug border - delete later
+    borderWidth: 1, // Set to 1 to visualize
   },
 });
