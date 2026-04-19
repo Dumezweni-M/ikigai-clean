@@ -2,6 +2,7 @@ import React from "react";
 import { Text, TextInput, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useMutation, gql } from "@apollo/client"
+import { CREATE_TASK } from "../graphql/mutations";
 import { useState } from "react";
 
 import ScreenWrapper from "../components/ScreenWrapper";
@@ -14,15 +15,6 @@ import colors from "../styles/colors";
 import PillarSelector from "../components/PillarSelector";
 import FrequencySelector from "../components/FrequencySelector";
 
-
-
-const CREATE_TASK = gql`
-  mutation CreateTask($taskItem: String!, $pillar: String!, $intensity: Int!, $interval: String!) {
-    createTaskItem(taskItem: $taskItem, pillar: $pillar, intensity: $intensity, interval: $interval) {
-      id
-    }
-  }
-`;
 
 export default function Initiate() {
     const Navigation = useNavigation();
@@ -53,13 +45,12 @@ export default function Initiate() {
         addTask({
             variables: {
                 taskItem: intention,
-                pillar: pillar || pillar,
+                pillar: pillar,
                 intensity: 1,
                 interval: frequency
             }
         });
     };
-
 
 
     return (
@@ -73,7 +64,7 @@ export default function Initiate() {
                 
                 {/* Set your task  */}
                 <Stack size="md" style={layout.cardXs}>
-                    <Text style={typography.h2}>Add another intention</Text>
+                    <Text style={typography.h2}>Add an intention</Text>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.border }}>
                         <TextInput
                             style={typography.light}
