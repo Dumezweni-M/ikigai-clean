@@ -30,7 +30,7 @@ export default function Navbar() {
           style={styles.item}
           onPress={() => navigation.navigate(item.name)}
         >
-          <item.icon size={24} color={colors.secondary} strokeWidth={2} />
+          <item.icon size={24} color={colors.secondary} strokeWidth={0.8} />
           <Text style={styles.label}>{item.name}</Text>
         </TouchableOpacity>
       ))}

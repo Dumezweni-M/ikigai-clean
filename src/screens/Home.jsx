@@ -59,7 +59,6 @@ function Home() {
             
 
             {/* Activity Heatmap  */}
-
             <Stack size='lg' style={layout.cardMdDark}>
                 <Text style={[typography.h2, { color: colors.white }]}>Activity Heat Map</Text>
                 <Text style={[typography.body, { color: colors.white }]}>Your annual pulse</Text>
