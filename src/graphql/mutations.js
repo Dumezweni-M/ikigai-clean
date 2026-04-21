@@ -36,7 +36,7 @@ export const UPDATE_TASK = gql`
 `;
 
 export const COMPLETE_TASK = gql`
-  mutation CompleteTask($taskId: String!, $intensity: Int!) {
+  mutation CompleteTask($taskId: String!, $intensity: Int) {
     completeTask(taskId: $taskId, intensity: $intensity) {
       id
       completedAt

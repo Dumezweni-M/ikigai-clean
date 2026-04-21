@@ -19,6 +19,8 @@ const typeDefs = gql`
     intensity: Int
     isChecked: Boolean!
     interval: String!
+    duration: Int
+    targetDays: Int
     createdAt: String!
     completions: [TaskCompletion!]!
   }
@@ -41,13 +43,13 @@ const typeDefs = gql`
     createTaskItem(
       taskItem: String!,
       pillar: String!,
-      intensity: Int!,
+      intensity: Int,
       interval: String!,
       duration: Int,
       targetDays: Int
     ): TaskItem!
 
-    completeTask(taskId: String!, intensity: Int!): TaskCompletion!
+    completeTask(taskId: String!, intensity: Int): TaskCompletion!
   }
 `;
 
@@ -129,7 +131,7 @@ const resolvers = {
         const completion = await prisma.taskCompletion.create({
           data: {
             taskId: taskId,
-            intensity: intensity,
+            intensity: intensity ?? 1,
             pillar: parentTask.pillar, // This satisfies the DB requirement
           },
         });

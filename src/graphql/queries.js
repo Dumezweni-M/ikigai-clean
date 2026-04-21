@@ -9,6 +9,8 @@ export const GET_TASKS = gql`
       intensity
       isChecked
       interval
+      duration
+      targetDays
       createdAt
       completions {
         id

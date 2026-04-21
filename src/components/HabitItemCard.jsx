@@ -75,6 +75,18 @@ export default function HabitItemCard({ tasks, onComplete }) {
                     {/* habit.taskItem is the field name in your DB */}
                     <Text style={typography.light}>{habit.taskItem}</Text> 
                     <Text style={typography.label}>Pillar: {habit.pillar}</Text>
+                    {/* <Text style={typography.label}>Target Days: {habit.targetDays}</Text> */}
+
+                    {/* Conditional Metric Display */}
+                    {habit.duration ? (
+                      <Text style={typography.label}>Min Duration: {habit.duration} mins</Text>
+                    ) : habit.targetDays ? (
+                      <Text style={typography.label}>
+                        Completed: {habit.completions.length} of {habit.targetDays} days
+                      </Text>
+                    ) : (
+                      <Text style={typography.label}>Pillar: {habit.pillar}</Text>
+                    )}
                   </View>
                 </View>
 
