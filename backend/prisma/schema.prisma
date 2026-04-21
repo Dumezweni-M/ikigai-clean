@@ -18,7 +18,7 @@ model TaskItem {
   id          String   @id @default(cuid())
   taskItem    String
   pillar      String
-  intensity   Int
+  intensity   Int?
   isChecked   Boolean  @default(false)
   interval    String  
   duration    Int?

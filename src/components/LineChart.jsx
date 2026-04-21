@@ -139,7 +139,7 @@ export default function SpikesGraph( {completions = []}) {
         xLabelsOffset={10}
         yLabelsOffset={30}
         fromZero={true}
-        fromNumber={5}  // Can later be mapped out to match Hours per day ?
+        fromNumber={8}  // Can later be mapped out to match Hours per day ?
         style={{
           borderRadius: radius.sm,
           // borderRadius: ,

@@ -60,7 +60,6 @@ const toggleIsChecked = () => {
         {/* Passing of Habit Items list */}
         <Stack size="sm">
           <HabitItemCard
-            // toggleIsChecked={toggleIsChecked}
             tasks={tasks}
             onComplete={(id, intensity) => {
               console.log(`Task ID: ${id}, Intensity: ${intensity}`);

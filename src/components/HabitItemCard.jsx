@@ -20,15 +20,14 @@ const PILLAR_ICONS = {
 };
 
 export default function HabitItemCard({ tasks, onComplete }) { 
-  const [checkedItems, setCheckedItems] = useState({});
   const [ localIntensities, setLocalIntensities ] = useState({})
 
   const toggleIsChecked = (id) => {
-    const newStatus = !checkedItems[id];
-    setCheckedItems(prev => ({ ...prev, [id]: newStatus }));
+    const habit = tasks.find(t => t.id === id);
+    // setCheckedItems(prev => ({ ...prev, [id]: newStatus }));
 
     // Only fire the database sync when the user checks the item
-    if (newStatus && onComplete) {
+    if (!habit.isCompleted && onComplete) {
       const finalIntensity = localIntensities[id] ?? tasks.find(t => t.id === id).intensity;
       onComplete(id, finalIntensity);
     }
@@ -40,16 +39,16 @@ export default function HabitItemCard({ tasks, onComplete }) {
     setLocalIntensities(prev => ({ ...prev, [id]: value }));
   };
 
-  const handleToggle = (id) => {
-    const newCheckedState = !checkedItems[id];
-    setCheckedItems(prev => ({ ...prev, [id]: newCheckedState }));
+  // const handleToggle = (id) => {
+  //   const newCheckedState = !checkedItems[id];
+  //   setCheckedItems(prev => ({ ...prev, [id]: newCheckedState }));
     
-    // ONLY send to DB if we are checking the item as 'true'
-    if (newCheckedState && onCompleteTask) {
-      const finalIntensity = localIntensities[id] || tasks.find(t => t.id === id).intensity;
-      onCompleteTask(id, finalIntensity);
-    }
-  };
+  //   // ONLY send to DB if we are checking the item as 'true'
+  //   if (newCheckedState && onCompleteTask) {
+  //     const finalIntensity = localIntensities[id] || tasks.find(t => t.id === id).intensity;
+  //     onCompleteTask(id, finalIntensity);
+  //   }
+  // };
 
   return (
     <View>
@@ -60,7 +59,7 @@ export default function HabitItemCard({ tasks, onComplete }) {
 
       {/* Map through the passed-in tasks instead of HABIT_DATA */}
       {tasks.map((habit) => {
-        const isChecked = checkedItems[habit.id] || false;
+        const isChecked = habit.isCompleted
         const displayIntensity = localIntensities[habit.id] ?? habit.intensity;
         const HabitIcon = PILLAR_ICONS[habit.pillar] || Target;
 
@@ -89,6 +88,7 @@ export default function HabitItemCard({ tasks, onComplete }) {
                 </TouchableOpacity>
               </View>
 
+              {/* Slider Logic */}
               <View style={styles.sliderRow}>
                 <Text style={typography.label}>Fulfilment {displayIntensity}/10</Text>
                 <Slider

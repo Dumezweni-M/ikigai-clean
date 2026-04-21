@@ -46,6 +46,9 @@ export default function Create() {
 
     const handleActivate = () => {
         console.log("DEBUG: Current Pillar State is:", pillar);
+        console.log("DEBUG: Current Intention is:", intention);
+        console.log("DEBUG: Current Duration is:", duration);
+        console.log("DEBUG: Current Target Days is:", targetDays);
         // 1. Validation check
         if (!intention || intention.trim() === "") {
             console.log("Validation failed: No intention");

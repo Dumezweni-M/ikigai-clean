@@ -16,7 +16,7 @@ const typeDefs = gql`
     id: ID!
     taskItem: String!
     pillar: String!
-    intensity: Int!
+    intensity: Int
     isChecked: Boolean!
     interval: String!
     createdAt: String!
@@ -27,8 +27,8 @@ const typeDefs = gql`
     id: ID!
     taskId: String!
     completedAt: String!
-    intensity: Int!
-    pillar: String!   # Corrected case to lowercase 'p'
+    intensity: Int
+    pillar: String!   
   }
 
   type Query {
@@ -90,28 +90,31 @@ const resolvers = {
   },
 
   Mutation: {
-    createTaskItem: async (_, { taskItem, pillar, intensity, interval, duration, targetDays }) => {
-      try {
-        const newItem = await prisma.taskItem.create({
-          data: {
-            taskItem,
-            pillar,
-            intensity,
-            interval,
-            duration,
-            targetDays,
-            isChecked: false,
-          },
-        });
-        return {
-          ...newItem,
-          createdAt: newItem.createdAt.toISOString(),
-          completions: [],
-        };
-      } catch (error) {
-        console.error("Failed to create a task item:", error);
-      }
-    },
+  createTaskItem: async (_, { taskItem, pillar, intensity, interval, duration, targetDays }) => {
+    try {
+      const newItem = await prisma.taskItem.create({
+        data: {
+          taskItem,
+          pillar,
+          intensity: null,
+          interval,
+          duration,
+          targetDays,
+          isChecked: false,
+        },
+      });
+
+      return {
+        ...newItem,
+        createdAt: newItem.createdAt.toISOString(),
+        completions: [],
+      };
+    } catch (error) {
+      console.error("Failed to create a task item:", error);
+      // Throwing a proper error prevents GraphQL from trying to return 'null'
+      throw new Error(`Failed to create task: ${error.message}`);
+    }
+  },
 
     completeTask: async (_, { taskId, intensity }) => {
       try {
