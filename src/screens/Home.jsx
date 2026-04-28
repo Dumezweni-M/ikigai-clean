@@ -40,22 +40,21 @@ function Home() {
                 <ActivePillarHero/>
             </Stack>
             
-
             {/* Weekly Flow State */}
             <Stack size='lg' style={layout.cardMd}>
                 <Text style={typography.h2}>Flow State</Text>
                 <SpikesGraph completions={data?.taskCompletions} />
             </Stack>
 
-
+            
             {/* Equilibrium Radar*/}
-            <Stack size='lg' style={layout.cardLgTertiary}>
+            <Stack size='lg' style={layout.cardLg}>
                 <Text style={typography.h2}>Equilibrium Radar</Text>
                 <Text style={typography.label}>"Where intention goes, energy flows."</Text>
                 <ProgressRings/>
                 <Text style={typography.body}>"Your energy is a finite currency. The pillars show where you're spending it."</Text>
             </Stack>
-            
+
             
 
             {/* Activity Heatmap  */}

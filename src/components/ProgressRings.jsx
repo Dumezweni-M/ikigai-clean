@@ -5,42 +5,69 @@ import colors from '../styles/colors';
 import typography from '../styles/typography';
 import { spacing } from '../styles/spacing';
 
+import {  useQuery } from '@apollo/client';
+import { GET_COMPLETIONS } from '../graphql/queries'; 
+
 const screenWidth = Dimensions.get("window").width;
 
 const ProgressRings = () => {
-  // Raw stats for the 4 pillars
-  const stats = {
-    physical: 0.001,
-    mental: 0.001,
-    social: 0.001,
-    purpose: 0.001
-  };
+const { data: completionData, loading } = useQuery(GET_COMPLETIONS);
 
-  // The "YOU" ring is the average of the 4 pillars (each contributes 25%)
-  // Should be adjustable in future so person can weight pillars differently if they choose
-  const youValue = (stats.physical + stats.mental + stats.social + stats.purpose) / 4;
+const stats = React.useMemo(() => {
+    // 1. Matches your DB lowercase fields
+    const totals = { love: 0, wealth: 0, skill: 0, needs: 0 };
+    
+    if (!completionData?.taskCompletions) return totals;
 
-  const pillars = [
-    { label: "YOU", value: youValue, color: colors.secondary }, // Master Gold Ring
-    { label: "Love", value: stats.physical, color: "rgba(0, 0, 0, 0.8)" },
-    { label: "Skill", value: stats.mental, color: "rgba(0, 0, 0, 0.6)" },
-    { label: "World", value: stats.social, color: "rgba(0, 0, 0, 0.4)" },
-    { label: "Wealth", value: stats.purpose, color: "rgba(0, 0, 0, 0.2)" }
-  ];
+    completionData.taskCompletions.forEach(c => {
+      const p = c.pillar?.toLowerCase(); 
+      if (totals.hasOwnProperty(p)) {
+        totals[p] += c.intensity || 1;
+      }
+    });
 
-  const data = {
-    labels: pillars.map(p => p.label),
-    data: pillars.map(p => p.value),
-    colors: pillars.map(p => p.color)
-  };
+    const getProgress = (points) => (points % 500) / 500;
+
+    return {
+      love: getProgress(totals.love),
+      wealth: getProgress(totals.wealth),
+      skill: getProgress(totals.skill),
+      needs: getProgress(totals.needs),
+    };
+  }, [completionData]);
+
+  const sortedPillars = React.useMemo(() => {
+    const basePillars = [
+      { label: "love", value: stats.love, color: 'rgb(216, 142, 164)' },
+      { label: "wealth", value: stats.wealth, color: 'rgb(212, 180, 131)' },
+      { label: "skill", value: stats.skill, color: 'rgb(143, 179, 153)' },
+      { label: "needs", value: stats.needs, color: 'rgb(142, 172, 200)' }
+    ];
+
+    // DYNAMIC ORDERING: Lowest value becomes the outermost ring
+    const sorted = [...basePillars].sort((a, b) => b.value - a.value);
+
+    // "YOU" (Average)
+    const youValue = (stats.love + stats.wealth + stats.skill + stats.needs) / 4;
+    
+    return [{ label: "Balance", value: youValue, color: 'rgb(45, 52, 54)' }, ...sorted];
+  }, [stats]);
 
   const chartConfig = {
-    backgroundGradientFrom: colors.bg,
-    backgroundGradientTo: colors.bg,
+    backgroundGradientFrom: colors.bg || "#ffffff",
+    backgroundGradientTo: colors.bg || "#ffffff",
     backgroundGradientFromOpacity: 0,
     backgroundGradientToOpacity: 0,
     color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-    labelColor: (opacity = 1) => colors.black,
+    labelColor: (opacity = 1) => colors.black || "#000000",
+  };
+
+  if (loading) return null;
+
+  const data = {
+    labels: sortedPillars.map(p => p.label),
+    data: sortedPillars.map(p => p.value),
+    colors: sortedPillars.map(p => p.color)
   };
 
   return (
@@ -57,7 +84,7 @@ const ProgressRings = () => {
       />
 
       <View style={styles.legendContainer}>
-        {pillars.map((item, index) => (
+        {sortedPillars.map((item, index) => (
           <View key={index} style={styles.legendItem}>
             <View style={[styles.indicator, { backgroundColor: item.color }]} />
             <View>
@@ -84,20 +111,26 @@ const styles = StyleSheet.create({
   legendContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    width: '100%',
+    justifyContent: 'space-evenly',
+    width: '120%',
+    borderColor: colors.border,
+    // borderWidth: 1,
+    borderRadius: 8,
+    marginLeft: 19, // Adjust to align with the chart
+    padding: spacing.sm,
     marginTop: spacing.lg,
   },
   legendItem: {
     flexDirection: 'row',
+    // borderWidth: 1,
     alignItems: 'center',
-    width: '45%',
-    marginBottom: spacing.md,
+    width: '20%',
+    marginBottom: spacing.sm,
   },
   indicator: {
     width: 6,
-    height: 6,
-    borderRadius: 3,
+    height: 30,
+    borderRadius: 5,
     marginRight: spacing.sm,
   },
 });

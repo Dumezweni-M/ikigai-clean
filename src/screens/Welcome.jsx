@@ -30,7 +30,7 @@ export default function Welcome() {
 
                 {/* Introduction Hero Section */}
                 <Stack style={layout.cardMdDark}>
-                    <Text style={[typography.h2, { color: colors.neutral }]}>The framework of a meaningful life is build upon intersecting structural pillars</Text>
+                    <Text style={[typography.h2, { color: colors.neutral }]}>The framework of a meaningful life is built upon intersecting structural pillars</Text>
                     <Text style={[typography.body, { color: colors.secondary }]}>Harmony is not found in excess but in the precise alignment of internal drive and external utility</Text>
                 </Stack>
 

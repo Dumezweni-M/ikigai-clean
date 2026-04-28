@@ -16,6 +16,7 @@ import Header from "../components/Header";
 import Stack from "../components/Stack";
 import Button from "../components/Buttons";
 import HabitItemCard from "../components/HabitItemCard";
+import DashboardFilter from "../components/DashboardFilter";
 
 import typography from "../styles/typography";
 import layout from "../styles/layout";
@@ -50,10 +51,15 @@ const toggleIsChecked = () => {
   return (
     <ScreenWrapper>
       <ScrollVertical>
+
         <Stack size="lg" style={layout.cardXs}>
           <Text style={typography.label}>April 21, 2026 - Tuesday</Text>
           <Text style={typography.h1}>Reflection</Text>
           <Text style={typography.label}>Select the intesity of each task you completed before marking it as done. Tasks will be greyed out until midnight before being reactivated.  </Text>
+        </Stack>
+
+        <Stack size='lg' style={layout.cardXxs}>
+          <DashboardFilter/>
         </Stack>
 
 
@@ -80,6 +86,7 @@ const toggleIsChecked = () => {
             onPress={() => navigation.navigate("Home")} 
           />
         </Stack>
+
       </ScrollVertical>
     </ScreenWrapper>
   );

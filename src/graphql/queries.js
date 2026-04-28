@@ -1,5 +1,4 @@
 import { gql } from "@apollo/client";
-
 export const GET_TASKS = gql`
   query GetTasks {
     taskItems {
@@ -19,6 +18,7 @@ export const GET_TASKS = gql`
     }
   }
 `;
+
 
 
 export const GET_COMPLETIONS = gql`

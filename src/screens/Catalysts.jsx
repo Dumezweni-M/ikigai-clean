@@ -22,6 +22,14 @@ export default function Catalysts() {
                     {/* <Text style={typography.body}>Share your current focus or area/s of interest.</Text> */}
                 </Stack>
 
+                <Stack size='lg' style={layout.cardMd}>
+                    <Text style={typography.label}>Spread Love</Text>
+                    <Text style={typography.h1}>lOVE</Text>
+                    <Text style={typography.body}>Surprise a loved one with an act of kindness</Text>
+                    <Button label="Accept Task" variant="cta" onPress={() => Navigation.navigate("Experiments")} />  
+                </Stack>
+
+
                 {/* Meditation Timer */}
                 <Stack size='lg' style={layout.cardMdTertiary}>
                     <Text style={typography.label}>State of Mind</Text>
