@@ -55,26 +55,39 @@ const layout = StyleSheet.create({
     justifyContent: 'center',
     backgroundColor: colors.tertiary,
     padding: spacing.xxl,
-},
-cardMdTertiary: {
+  },
+  cardMdTertiary: {
     width: width,
     height: height * 0.55,
     justifyContent: 'center',
     backgroundColor: colors.tertiary,
     padding: spacing.xl,
-},
-cardSmTertiary: {
+  },
+  cardSmTertiary: {
     width: width,
     height: height * 0.35,
     justifyContent: 'center',
     backgroundColor: colors.tertiary,
     padding: spacing.xl,
   },
-cardXsTertiary: {
+  cardXsTertiary: {
     width: width,
     height: height * 0.25,
     justifyContent: 'center',
-    
+    backgroundColor: colors.tertiary,
+    padding: spacing.xl,
+  },
+  cardXxsTertiary: {
+    width: width,
+    height: height * 0.18,
+    justifyContent: 'center',
+    backgroundColor: colors.tertiary,
+    padding: spacing.xl,
+  },
+  cardXxxsTertiary: {
+    width: width,
+    height: height * 0.12,
+    justifyContent: 'center',
     backgroundColor: colors.tertiary,
     padding: spacing.xl,
   },
@@ -114,7 +127,25 @@ cardXsTertiary: {
     backgroundColor: colors.bg,
     padding: spacing.xl,
   },
-
+  cardXxsDark: {
+    flex: 1,
+    justifyContent: 'center',
+    marginVertical: spacing.xl,
+    width: width,
+    height: height * 0.18,
+    backgroundColor: colors.bg,
+    padding: spacing.xl,
+  },
+  cardXxxsDark: {
+    flex: 1,
+    justifyContent: 'center',
+    marginVertical: spacing.xl,
+    width: width,
+    height: height * 0.12,
+    backgroundColor: colors.bg,
+    padding: spacing.xl,
+  },
 });
+
 
 export default layout;
