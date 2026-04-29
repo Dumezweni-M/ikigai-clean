@@ -39,7 +39,6 @@ export default function Create() {
         },
         refetchQueries: ["taskItems"],
         onError: (err) => {
-            // This is critical for USB debugging
             console.log("Full Mutation Error Object:", JSON.stringify(err, null, 2));
         }
     });
@@ -69,7 +68,8 @@ export default function Create() {
         });
     };
 
-
+    const isHorizonSet = duration !== "" && targetDays !== "";
+    const canActivate = pillar && intention.trim() !== "" && isHorizonSet;
 
     return (
         <ScreenWrapper>
@@ -82,25 +82,30 @@ export default function Create() {
                 </Stack>
                 
                 {/* Set your task  */}
-                <Stack size="md" style={layout.cardXs}>
-                    <Text style={typography.h2}>Add another intention</Text>
-                    <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.border }}>
-                        <TextInput
-                            style={typography.light}
-                            placeholder="Set your intention"
-                            value={intention}
-                            onChangeText={setIntention}
-                        />
-                    </View>
-                </Stack>
+                {pillar && (
+                    <Stack size="md" style={layout.cardXs}>
+                        <Text style={typography.h2}>Add Intention</Text>
+                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.border }}>
+                            <TextInput
+                                style={typography.light}
+                                placeholder="Set your intention"
+                                value={intention}
+                                onChangeText={setIntention}
+                            />
+                        </View>
+                    </Stack>
+                )}
 
-                {/* Select Frequency */}
-                <Stack size="xxl" style={layout.cardMd}>
-                    <Text style={typography.h2}>Set your horizon</Text>
-                    <FrequencySelector
-                        onSelect={setFrequency}
-                        onValueChange={handleFrequencyData} />
-                </Stack>
+                {/* Set your horizon - Revealed when user starts typing intention */}
+                {intention.length > 0 && (
+                    <Stack size="xxl" style={layout.cardMd}>
+                        <Text style={typography.h2}>Set your horizon</Text>
+                        <FrequencySelector
+                            onSelect={setFrequency}
+                            onValueChange={handleFrequencyData} 
+                        />
+                    </Stack>
+                )}
 
                 {/* Add to list */}
                 <Stack size="lg" style={layout.cardSmDark}>
@@ -108,7 +113,7 @@ export default function Create() {
                         label="Activate"
                         variant="cta"
                         onPress={handleActivate}
-                        disabled={loading}
+                        disabled={!canActivate || loading}
                     />
                 </Stack>
 

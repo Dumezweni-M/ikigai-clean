@@ -8,7 +8,6 @@ import Slider from '@react-native-community/slider';
 import { Target, Check } from 'lucide-react-native';
 import { useState } from "react";
 
-
 import Navbar from "../components/Navbar";
 import ScreenWrapper from "../components/ScreenWrapper";
 import ScrollVertical from "../components/ScrollVertical";
@@ -23,11 +22,8 @@ import layout from "../styles/layout";
 import colors from "../styles/colors";
 import { spacing } from "../styles/spacing";
 
-
-
 export default function Reflect() {
 const navigation = useNavigation();
-
 
 const [completeTask] = useMutation(COMPLETE_TASK, {
     refetchQueries: [{ query: GET_TASKS }], // Refreshes the list automatically
@@ -35,8 +31,6 @@ const [completeTask] = useMutation(COMPLETE_TASK, {
     onError: (err) => console.error("Mutation error:", err.message),
   });
 
-
-  
 const toggleIsChecked = () => {
     setIsChecked(prev => !prev);
   };

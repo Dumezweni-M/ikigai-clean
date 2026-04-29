@@ -8,7 +8,7 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
 // This is required for the mobile app to connect to the local GraphQL server.
 
 const client = new ApolloClient({
-  uri: 'http://192.168.178.50:4000/graphql',  
+  uri: 'http://192.168.178.31:4000/graphql',  
   cache: new InMemoryCache(),
 });
 
