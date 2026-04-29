@@ -36,3 +36,4 @@ model TaskCompletion {
 
   task        TaskItem @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
+
