@@ -19,26 +19,31 @@ const NavItems = [
   { name: 'Love', icon: Sparkle },
   { name: 'Skill', icon: Compass },
   { name: 'Wealth', icon: Scale },
-  { name: 'Social', icon: Waves },
+  { name: 'World', icon: Waves },
 ];
 
 
-export default function DashboardFilter () {
-  const navigation = useNavigation();
+export default function DashboardFilter({ selectedPillar, onSelect }) {
   return (
-    
-      <View style={styles.container}>
-        {NavItems.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            style={styles.item}
-            onPress={() => navigation.navigate(item.name)}
-          >
-            {/* <item.icon size={14} color={colors.secondary} strokeWidth={0.8} /> */}
-            <Text style={styles.h1}>{item.name}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+    <View style={styles.container}>
+      {NavItems.map((item, index) => (
+        <TouchableOpacity
+          key={index}
+          style={[
+            styles.item, 
+            selectedPillar === item.name && { backgroundColor: colors.black } // Visual feedback
+          ]}
+          onPress={() => onSelect(item.name)}
+        >
+          <Text style={[
+            styles.h1, 
+            selectedPillar === item.name && { color: colors.white }
+          ]}>
+            {item.name}
+          </Text>
+        </TouchableOpacity>
+      ))}
+    </View>
   );
 }
 

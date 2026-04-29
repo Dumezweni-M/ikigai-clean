@@ -24,6 +24,7 @@ import { spacing } from "../styles/spacing";
 
 export default function Reflect() {
 const navigation = useNavigation();
+const [activePillar, setActivePillar] = useState("All");
 
 const [completeTask] = useMutation(COMPLETE_TASK, {
     refetchQueries: [{ query: GET_TASKS }], // Refreshes the list automatically
@@ -40,6 +41,14 @@ const toggleIsChecked = () => {
   if (loading) return <Text>Loading tasks...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
+  const allTasks = data.taskItems;
+
+  // Filter task logic based on selected pillar
+  const filteredTasks = activePillar === "All" 
+    ? allTasks 
+    : allTasks.filter(task =>
+        task.pillar?.toLowerCase() === activePillar.toLowerCase());
+
   const tasks = data.taskItems;
 
   return (
@@ -53,14 +62,17 @@ const toggleIsChecked = () => {
         </Stack>
 
         <Stack size='lg' style={layout.cardXxs}>
-          <DashboardFilter/>
+          <DashboardFilter
+            selectedPillar={activePillar}
+            onSelect={setActivePillar}
+          />
         </Stack>
 
 
         {/* Passing of Habit Items list */}
         <Stack size="sm">
           <HabitItemCard
-            tasks={tasks}
+            tasks={filteredTasks}
             onComplete={(id, intensity) => {
               console.log(`Task ID: ${id}, Intensity: ${intensity}`);
               completeTask({
@@ -75,7 +87,7 @@ const toggleIsChecked = () => {
 
         <Stack size="lg" style={layout.cardXs}>
           <Button 
-            label="Confirm" 
+            label="Back to Dashboard" 
             variant="inverted" 
             onPress={() => navigation.navigate("Home")} 
           />
