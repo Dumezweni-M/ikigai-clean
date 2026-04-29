@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Slider from '@react-native-community/slider';
-import { Target, Check, Heart, Briefcase, Users } from 'lucide-react-native';
+import { Target, Check, Heart, Briefcase, Users, Banknote, Zap } from 'lucide-react-native';
 
 import Stack from "./Stack";
 
@@ -14,12 +14,15 @@ import { spacing } from "../styles/spacing";
 
 const PILLAR_ICONS = {
   "LOVE": Heart,
-  "SKILL": Target,
-  "WEALTH": Briefcase,
+  "SKILL": Zap,
+  "WEALTH": Banknote,
   "WORLD": Users,
+  "All": Target,
 };
 
 export default function HabitItemCard({ tasks, onComplete }) { 
+
+  //Sets intensity/fulfilment level locally for immediate UI feedback, before syncing with DB on checkbox toggle
   const [ localIntensities, setLocalIntensities ] = useState({})
 
   const toggleIsChecked = (id) => {
@@ -39,16 +42,6 @@ export default function HabitItemCard({ tasks, onComplete }) {
     setLocalIntensities(prev => ({ ...prev, [id]: value }));
   };
 
-  // const handleToggle = (id) => {
-  //   const newCheckedState = !checkedItems[id];
-  //   setCheckedItems(prev => ({ ...prev, [id]: newCheckedState }));
-    
-  //   // ONLY send to DB if we are checking the item as 'true'
-  //   if (newCheckedState && onCompleteTask) {
-  //     const finalIntensity = localIntensities[id] || tasks.find(t => t.id === id).intensity;
-  //     onCompleteTask(id, finalIntensity);
-  //   }
-  // };
 
   return (
     <View>
@@ -57,42 +50,54 @@ export default function HabitItemCard({ tasks, onComplete }) {
             <Text style={typography.label}> {tasks.length} Pending items</Text>
         </Stack>
 
-      {/* Map through the passed-in tasks instead of HABIT_DATA */}
       {tasks.map((habit) => {
-        const isChecked = habit.isCompleted
+        // Step 3: Determine "Locked" state from DB/Apollo field
+        // Adjust 'isCompleted' to match your actual GraphQL field (e.g., isCompletedToday)
+        console.log(`Task: ${habit.taskItem}, isCompleted:`, habit.isCompleted);
+        const isChecked = habit.isChecked || habit.isCompleted; // Fallback to DB value if local state is not set
+        
         const displayIntensity = localIntensities[habit.id] ?? habit.intensity;
-        const HabitIcon = PILLAR_ICONS[habit.pillar] || Target;
+        
+        // Handle case-insensitive icon lookup
+        const iconKey = Object.keys(PILLAR_ICONS).find(
+          key => key.toLowerCase() === habit.pillar?.toLowerCase()
+        );
+        const HabitIcon = PILLAR_ICONS[iconKey] || Target;
 
         return (
           <Stack key={habit.id} size="sm" style={layout.cardXxs}>
-            <View style={[styles.cardInternal, isChecked && { opacity: 0.4 }]}>
+            <View style={[styles.cardInternal, isChecked ? { opacity: 0.4 } : { opacity: 1 }]}>
               <View style={styles.topRow}>
                 <View style={styles.mainContent}>
                   <View style={styles.iconBox}>
                     <HabitIcon size={20} color={colors.secondary} />
                   </View>
-                  <View style={styles.textGroup}>
-                    {/* habit.taskItem is the field name in your DB */}
-                    <Text style={typography.light}>{habit.taskItem}</Text> 
-                    <Text style={typography.label}>Pillar: {habit.pillar}</Text>
-                    {/* <Text style={typography.label}>Target Days: {habit.targetDays}</Text> */}
 
-                    {/* Conditional Metric Display */}
-                    {habit.duration ? (
-                      <Text style={typography.label}>Min Duration: {habit.duration} mins</Text>
-                    ) : habit.targetDays ? (
-                      <Text style={typography.label}>
-                        Completed: {habit.completions.length} of {habit.targetDays} days
-                      </Text>
-                    ) : (
-                      <Text style={typography.label}>Pillar: {habit.pillar}</Text>
-                    )}
-                  </View>
+
+            <View style={styles.textGroup}>
+              {/* Always show Task Title */}
+              <Text style={typography.light}>{habit.taskItem}</Text>
+              
+              {/* Always show Pillar */}
+              <Text style={typography.label}>Pillar: {habit.pillar}</Text>
+              
+              {/* Conditional Metrics displayed underneath */}
+              {habit.duration && (
+                <Text style={typography.label}>Min Duration: {habit.duration} mins</Text>
+              )}
+
+              {habit.targetDays && (
+                <Text style={typography.label}>
+                  Completed: {habit.completions?.length || 0} of {habit.targetDays} days
+                </Text>
+              )}
+            </View>
                 </View>
 
                 <TouchableOpacity 
                   onPress={() => toggleIsChecked(habit.id)}
                   style={styles.checkboxWrapper}
+                  disabled={isChecked}
                 >
                   <View style={[styles.checkbox, isChecked && styles.checkboxActive]}>
                     {isChecked && <Check size={16} color={colors.surface} strokeWidth={3} />}
@@ -165,7 +170,7 @@ const styles = StyleSheet.create({
     borderRadius: 0,
   },
   checkboxActive: {
-    backgroundColor: '#000',
+    backgroundColor: 'fff',
   },
   sliderRow: {
     flexDirection: 'row',
@@ -180,5 +185,9 @@ const styles = StyleSheet.create({
   slider: {
     flex: 1,
     height: 20,
+  },
+  cardInternal: {
+    width: '100%',
+    paddingVertical: spacing.xs,
   },
 });

@@ -36,20 +36,26 @@ const toggleIsChecked = () => {
     setIsChecked(prev => !prev);
   };
 
-  const { loading, error, data } = useQuery(GET_TASKS);
+  const { loading, error, data } = useQuery(GET_TASKS, {
+    fetchPolicy: 'network-only', // Always fetch fresh data from the server
+    // fetchPolicy: 'cache-and-network',
+  });
 
   if (loading) return <Text>Loading tasks...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
-  const allTasks = data.taskItems;
+  const allTasks = data?.taskItems || [];
 
-  // Filter task logic based on selected pillar
-  const filteredTasks = activePillar === "All" 
+  // Filter task then sort 
+  const filteredTasks = [...(activePillar === "All" 
     ? allTasks 
-    : allTasks.filter(task =>
-        task.pillar?.toLowerCase() === activePillar.toLowerCase());
+    : allTasks.filter(task => 
+        task.pillar?.toLowerCase() === activePillar.toLowerCase()
+      )
+  )]
+  .sort((a, b) => (a.isChecked === b.isChecked ? 0 : a.isChecked ? 1 : -1));
 
-  const tasks = data.taskItems;
+    const tasks = data?.taskItems || [];
 
   return (
     <ScreenWrapper>
