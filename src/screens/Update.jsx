@@ -61,13 +61,14 @@ const toggleIsChecked = () => {
     <ScreenWrapper>
       <ScrollVertical>
 
-        <Stack size="lg" style={layout.cardXs}>
-          <Text style={typography.label}>April 21, 2026 - Tuesday</Text>
+        <Stack size="lg" style={layout.cardXxs}>
+          {/* <Text style={typography.label}>April 21, 2026 - Tuesday</Text> */}
           <Text style={typography.h1}>Reflection</Text>
           <Text style={typography.label}>Select the intesity of each task you completed before marking it as done. Tasks will be greyed out until midnight before being reactivated.  </Text>
         </Stack>
 
-        <Stack size='lg' style={layout.cardXxs}>
+        {/* Dash board filter to exclude tasks based on pillar */}
+        <Stack size='sm' style={layout.cardXxxs}>
           <DashboardFilter
             selectedPillar={activePillar}
             onSelect={setActivePillar}

@@ -45,7 +45,7 @@ export default function HabitItemCard({ tasks, onComplete }) {
 
   return (
     <View>
-        <Stack size="" style={[layout.cardXxxs, { flexDirection :'row', justifyContent: 'space-between', alignItems: 'center' }]} >
+        <Stack size="sm" style={[layout.cardXxxs, { flexDirection :'row', justifyContent: 'space-between', alignItems: 'center' }]} >
             <Text style={typography.light}>Active Items</Text>
             <Text style={typography.label}> {tasks.length} Pending items</Text>
         </Stack>
@@ -65,7 +65,7 @@ export default function HabitItemCard({ tasks, onComplete }) {
         const HabitIcon = PILLAR_ICONS[iconKey] || Target;
 
         return (
-          <Stack key={habit.id} size="sm" style={layout.cardXxs}>
+          <Stack key={habit.id} size="sm" style={layout.cardXxxs}>
             <View style={[styles.cardInternal, isChecked ? { opacity: 0.4 } : { opacity: 1 }]}>
               <View style={styles.topRow}>
                 <View style={styles.mainContent}>

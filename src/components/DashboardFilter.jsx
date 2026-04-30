@@ -31,7 +31,7 @@ export default function DashboardFilter({ selectedPillar, onSelect }) {
           key={index}
           style={[
             styles.item, 
-            selectedPillar === item.name && { backgroundColor: colors.black } // Visual feedback
+            selectedPillar === item.name && { backgroundColor: colors.secondary } // Visual feedback
           ]}
           onPress={() => onSelect(item.name)}
         >
@@ -52,17 +52,14 @@ const styles = StyleSheet.create({
   flexDirection: 'row',
   justifyContent: 'space-around',
   alignItems: 'center',
-  border: 1,
-  
   alignSelf: 'stretch',
   width: '100%',
 },
 item: {
   alignItems: 'center',
   justifyContent: 'center',
-  borderWidth: 1,
+  // borderWidth: 0.5,
   width: '18%',
-  padding: 8,
-  borderRadius: 8,
+  padding: 4,
   },
 });

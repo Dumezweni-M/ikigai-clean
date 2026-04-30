@@ -1,5 +1,3 @@
-
-
 import { StyleSheet, Dimensions } from 'react-native';
 import colors from './colors';
 import { radius, spacing } from './spacing';
@@ -49,6 +47,13 @@ const layout = StyleSheet.create({
     backgroundColor: colors.neutral,
     padding: spacing.xl,
   },
+  cardSlit: {
+    width: width,
+    height: height * 0.08,
+    justifyContent: 'center',
+    backgroundColor: colors.neutral,
+    padding: spacing.xl,
+  },
   cardLgTertiary: {
     width: width,
     height: height,
@@ -87,6 +92,13 @@ const layout = StyleSheet.create({
   cardXxxsTertiary: {
     width: width,
     height: height * 0.12,
+    justifyContent: 'center',
+    backgroundColor: colors.tertiary,
+    padding: spacing.xl,
+  },
+  cardSlitTertiary: {
+    width: width,
+    height: height * 0.08,
     justifyContent: 'center',
     backgroundColor: colors.tertiary,
     padding: spacing.xl,
@@ -145,7 +157,15 @@ const layout = StyleSheet.create({
     backgroundColor: colors.bg,
     padding: spacing.xl,
   },
+  cardSlitDark: {
+    flex: 1,
+    justifyContent: 'center',
+    marginVertical: spacing.xl,
+    width: width,
+    height: height * 0.08,
+    backgroundColor: colors.bg,
+    padding: spacing.xl,
+  },
 });
-
 
 export default layout;
