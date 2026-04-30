@@ -8,19 +8,18 @@ import ScrollVertical from '../components/ScrollVertical';
 import Stack from '../components/Stack';
 import Button from '../components/Buttons';
 import colors from '../styles/colors';
+
 import Navbar from '../components/Navbar';
 import ActivityGraph from '../components/ContriGraph';
 import SpikesGraph from '../components/LineChart';
 import Header from '../components/Header';
 import ScreenWrapper from '../components/ScreenWrapper';
-import ProgressRings from '../components/ProgressRings';
+import ProgressRings from '../components/EquilibruimRadar';
 import { useNavigation } from '@react-navigation/native';
 import ActivePillarHero from '../components/ActivePillarHero';
 
 import { useQuery } from '@apollo/client';
 import { GET_COMPLETIONS } from '../graphql/queries';
-
-
 
 function Home() {
     const Navigation = useNavigation();
@@ -45,8 +44,7 @@ function Home() {
                 <Text style={typography.h2}>Flow State</Text>
                 <SpikesGraph completions={data?.taskCompletions} />
             </Stack>
-
-            
+           
             {/* Equilibrium Radar*/}
             <Stack size='lg' style={layout.cardLg}>
                 <Text style={typography.h2}>Equilibrium Radar</Text>
@@ -54,8 +52,6 @@ function Home() {
                 <ProgressRings/>
                 <Text style={typography.body}>"Your energy is a finite currency. The pillars show where you're spending it."</Text>
             </Stack>
-
-            
 
             {/* Activity Heatmap  */}
             <Stack size='lg' style={layout.cardMdDark}>

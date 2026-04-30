@@ -13,7 +13,7 @@ import ActivityGraph from '../components/ContriGraph';
 import SpikesGraph from '../components/LineChart';
 import Header from '../components/Header';
 import ScreenWrapper from '../components/ScreenWrapper';
-import ProgressRings from '../components/ProgressRings';
+import ProgressRings from '../components/EquilibruimRadar';
 import { useNavigation } from '@react-navigation/native';
 import ActivePillarHero from '../components/ActivePillarHero';
 import DashboardFilter from '../components/DashboardFilter';

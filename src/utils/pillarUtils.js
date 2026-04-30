@@ -9,6 +9,7 @@ export function getPillarFrequencies(tasks) {
     }, {});
 }
 
+//Calculate unique count from the keys of our tally
 export function getActivePillarsCount(tasks) {
     return Object.keys(getPillarFrequencies(tasks)).length;
 }

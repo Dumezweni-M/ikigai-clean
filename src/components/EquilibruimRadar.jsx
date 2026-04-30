@@ -2,6 +2,7 @@ import React from 'react';
 import { Dimensions, View, Text, StyleSheet } from 'react-native';
 import { ProgressChart } from 'react-native-chart-kit';
 import colors from '../styles/colors';
+import pillarColors from '../styles/pillarColors';
 import typography from '../styles/typography';
 import { spacing } from '../styles/spacing';
 
@@ -14,7 +15,7 @@ const ProgressRings = () => {
 const { data: completionData, loading } = useQuery(GET_COMPLETIONS);
 
 const stats = React.useMemo(() => {
-    // 1. Matches your DB lowercase fields
+
     const totals = { love: 0, wealth: 0, skill: 0, needs: 0 };
     
     if (!completionData?.taskCompletions) return totals;
@@ -38,10 +39,10 @@ const stats = React.useMemo(() => {
 
   const sortedPillars = React.useMemo(() => {
     const basePillars = [
-      { label: "love", value: stats.love, color: 'rgb(216, 142, 164)' },
-      { label: "wealth", value: stats.wealth, color: 'rgb(212, 180, 131)' },
-      { label: "skill", value: stats.skill, color: 'rgb(143, 179, 153)' },
-      { label: "needs", value: stats.needs, color: 'rgb(142, 172, 200)' }
+      { label: "love", value: stats.love, color: pillarColors.Love },
+      { label: "skill", value: stats.skill, color: pillarColors.Skill },
+      { label: "wealth", value: stats.wealth, color: pillarColors.Wealth },
+      { label: "needs", value: stats.needs, color: pillarColors.World }
     ];
 
     // DYNAMIC ORDERING: Lowest value becomes the outermost ring

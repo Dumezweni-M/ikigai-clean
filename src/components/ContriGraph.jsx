@@ -6,7 +6,7 @@ import colors from '../styles/colors';
 import { spacing, radius } from '../styles/spacing';
 import { useQuery, gql } from '@apollo/client';
 import { GET_COMPLETIONS } from '../graphql/queries';
-
+import { processCompletions, getCurrentWeekOffset} from '../utils/activityGraphUtils'
 const screenWidth = Dimensions.get('window').width;
 
 
@@ -21,40 +21,8 @@ const chartConfig = {
   propsForDots: { r: '0' },
 };
 
-const processData = (taskCompletions) => {
-  // 1. Guard clause for empty or undefined data
-  if (!taskCompletions || taskCompletions.length === 0) {
-    console.log("No completions found to process.");
-    return [];
-  }
 
-  const map = {};
-  
-  taskCompletions.forEach(c => {
-    // 2. Defensive check for the date field
-    if (!c.completedAt) return;
-
-    // 3. Extract YYYY-MM-DD (Handling both ' ' and 'T' separators)
-    const date = c.completedAt.split(/[ T]/)[0]; 
-    
-    const base = 5; 
-    const effort = (c.intensity || 1) * 10;
-    
-    map[date] = (map[date] || 0) + (base + effort);
-  });
-
-  const result = Object.keys(map).map(date => ({
-    date,
-    count: map[date]
-  }));
-
-  console.log("Processed data for graph:", result);
-  return result;
-};
-
-
-
-const squareSize = 10;
+const squareSize = 7;
 const gutterSize = 1;
 const chartWidth = (53 * (squareSize + gutterSize)) + 80;
 const endOf2026 = new Date('2026-12-31')
@@ -65,6 +33,7 @@ export default function ActivityGraph() {
   const scrollRef = useRef(null);
 
   useEffect(() => {
+    
     // 1. Calculate how many weeks have passed this year
     const now = new Date();
     const startOfYear = new Date(now.getFullYear(), 0, 1);
@@ -75,7 +44,7 @@ export default function ActivityGraph() {
     // (Week Number * (Square + Gutter)) - Offset to center it a bit
     const squareSize = 10;
     const gutterSize = 1;
-    const xOffset = currentWeek * (squareSize + gutterSize);
+    const xOffset = getCurrentWeekOffset(squareSize, gutterSize);
 
     // 3. Scroll to position after a short delay to ensure layout is ready
     setTimeout(() => {
@@ -92,7 +61,7 @@ export default function ActivityGraph() {
   }
 
   const rawCompletions = data?.taskCompletions || [];
-  const liveData = processData(rawCompletions);
+  const liveData = processCompletions(rawCompletions);
 
 
   return (

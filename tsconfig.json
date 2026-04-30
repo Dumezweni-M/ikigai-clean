@@ -9,7 +9,7 @@
     "**/*.ts",
     "**/*.tsx",
     "nativewind-env.d.ts"
-, "App.jsx", "backend/prisma.config.js"  ],
+, "App.jsx", "backend/prisma.config.js", "__tests__/Buttons.test.jsx", "__tests__/App.test.jsx"  ],
   "exclude": [
     "**/node_modules",
     "**/Pods"
