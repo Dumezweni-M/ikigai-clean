@@ -62,7 +62,6 @@ const toggleIsChecked = () => {
       <ScrollVertical>
 
         <Stack size="lg" style={layout.cardXxs}>
-          {/* <Text style={typography.label}>April 21, 2026 - Tuesday</Text> */}
           <Text style={typography.h1}>Reflection</Text>
           <Text style={typography.label}>Select the intesity of each task you completed before marking it as done. Tasks will be greyed out until midnight before being reactivated.  </Text>
         </Stack>

@@ -76,14 +76,14 @@ export default function Create() {
             <ScrollVertical>
 
                 {/* Select Pillar  */}
-                <Stack size="lg" style={layout.cardMd}>
+                <Stack size="lg" style={layout.cardSm}>
                     <Text style={typography.h1}>Select a pillar</Text>
                     <PillarSelector onSelect={setPillar} current={pillar} />
                 </Stack>
                 
                 {/* Set your task  */}
                 {pillar && (
-                    <Stack size="md" style={layout.cardXs}>
+                    <Stack size="md" style={layout.cardXxsTertiary}>
                         <Text style={typography.h2}>Add Intention</Text>
                         <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', borderBottomWidth: 1, borderColor: colors.border }}>
                             <TextInput
@@ -98,7 +98,7 @@ export default function Create() {
 
                 {/* Set your horizon - Revealed when user starts typing intention */}
                 {intention.length > 0 && (
-                    <Stack size="xxl" style={layout.cardMd}>
+                    <Stack size="lg" style={layout.cardSm}>
                         <Text style={typography.h2}>Set your horizon</Text>
                         <FrequencySelector
                             onSelect={setFrequency}

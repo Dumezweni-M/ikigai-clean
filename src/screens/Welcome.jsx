@@ -17,7 +17,6 @@ export default function Welcome() {
     const navigation = useNavigation();
 
     return (
-    //    <ScreenWrapper>
             <ScrollVertical>
 
 
@@ -86,7 +85,6 @@ export default function Welcome() {
 
 
             </ScrollVertical>
-    //    </ScreenWrapper> 
     )
 };
 

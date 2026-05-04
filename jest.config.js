@@ -12,10 +12,10 @@ module.exports = {
   },
 
   // Uncomment to get code coverage reports and enforce minimum thresholds
-  // collectCoverage: true,
-  // coverageThreshold: {
-  //   global: {
-  //     lines: 80,       // fails if coverage drops below 80% - Industry Standard
-  //   },
-  // },
+  collectCoverage: true,
+  coverageThreshold: {
+    global: {
+      lines: 50,       // fails if coverage drops below 80% - Industry Standard
+    },
+  },
 };

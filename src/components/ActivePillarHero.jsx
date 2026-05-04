@@ -7,15 +7,20 @@ import { getPillarFrequencies, getActivePillarsCount } from "../utils/pillarUtil
 
 
 export default function ActivePillarHero() {
+    // Get task data to determine active pillars
     const { data, loading } = useQuery(GET_TASKS)
+
+    // Process tasks to get pillar frequencies and count of active pillars
     const tasks = data?.taskItems || [];
     const pillarFrequencies = getPillarFrequencies(tasks)
     const activePillarsCount = getActivePillarsCount(tasks)
 
-
+    // Debugging logs
     console.log("Detailed Breakdown:", pillarFrequencies);
 
     return (
+
+        // Simply displays how many pillars are active
         <View>
             <Text style={typography.label}>State of Mind</Text>
             <Text style={typography.h1}>{loading ? "--" : activePillarsCount} of 4 pillars active</Text>

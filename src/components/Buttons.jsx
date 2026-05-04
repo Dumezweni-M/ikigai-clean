@@ -7,6 +7,8 @@ import typography from '../styles/typography';
 
 export default function Button({ label, variant = 'primary', onPress, style }) {
   return (
+
+    // A versatile button component with multiple variants for different use cases.
     <TouchableOpacity
       style={[styles.base, styles[variant], style]}
       onPress={onPress}

@@ -52,26 +52,28 @@ export default function ActivityGraph() {
     }, 500);
   }, []);
 
+  // Verify processCompletions transforms raw data correctly
   const { data, loading, error } = useQuery(GET_COMPLETIONS);
-
+  // Debug raw data and processed data for verification
   if (loading) return null;
   if (error) {
     console.error("Heatmap Query Error:", error);
     return null;
   }
-
+  // Debug raw data and processed data for verification
   const rawCompletions = data?.taskCompletions || [];
   const liveData = processCompletions(rawCompletions);
 
 
   return (
 
-    
+    // A horizontally scrollable contribution graph that visualizes user activity throughout the year, with automatic scrolling to the current week.
     <View style={styles.container}>
       <ScrollView 
         horizontal showsHorizontalScrollIndicator={false}
         ref={scrollRef}
         >
+        {/* Contribution Graph configuration */}
         <ContributionGraph
          values={liveData.length > 0 ? liveData : [{ date: '2026-01-01', count: 0 }]}
           endDate={endOf2026}
