@@ -65,7 +65,7 @@ export default function LineGraph({ completions = [] }) {
   };
 
   const allDatasets = [
-    { key: 'All',    data: pillarData.All,    strokeWidth: 5 },
+    { key: 'All',    data: pillarData.All,    strokeWidth: 0.5 },
     { key: 'Love',   data: pillarData.Love,   strokeWidth: 1 },
     { key: 'Skill',  data: pillarData.Skill,  strokeWidth: 1 },
     { key: 'World',  data: pillarData.World,  strokeWidth: 1 },

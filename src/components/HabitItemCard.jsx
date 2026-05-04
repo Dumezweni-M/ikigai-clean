@@ -21,51 +21,41 @@ const PILLAR_ICONS = {
 };
 
 export default function HabitItemCard({ tasks, onComplete }) { 
-
-  //Sets intensity/fulfilment level locally for immediate UI feedback, before syncing with DB on checkbox toggle
-  const [ localIntensities, setLocalIntensities ] = useState({})
+  const [localIntensities, setLocalIntensities] = useState({});
 
   const toggleIsChecked = (id) => {
     const habit = tasks.find(t => t.id === id);
-    // setCheckedItems(prev => ({ ...prev, [id]: newStatus }));
-
-    // Only fire the database sync when the user checks the item
     if (!habit.isCompleted && onComplete) {
-      const finalIntensity = localIntensities[id] ?? tasks.find(t => t.id === id).intensity;
+      const finalIntensity = localIntensities[id] ?? habit.intensity;
       onComplete(id, finalIntensity);
     }
   };
-
-  
 
   const handleSliderChange = (id, value) => {
     setLocalIntensities(prev => ({ ...prev, [id]: value }));
   };
 
-
   return (
     <View>
-        <Stack size="sm" style={[layout.cardXxxs, { flexDirection :'row', justifyContent: 'space-between', alignItems: 'center' }]} >
-            <Text style={typography.light}>Active Items</Text>
-            <Text style={typography.label}> {tasks.length} Pending items</Text>
-        </Stack>
+      <Stack size="lg" style={[layout.cardXxxs, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
+        <Text style={typography.light}>Active Items</Text>
+        <Text style={typography.label}>{tasks.length} Pending items</Text>
+      </Stack>
 
       {tasks.map((habit) => {
-        // Step 3: Determine "Locked" state from DB/Apollo field
-        // Adjust 'isCompleted' to match your actual GraphQL field (e.g., isCompletedToday)
-        console.log(`Task: ${habit.taskItem}, isCompleted:`, habit.isCompleted);
-        const isChecked = habit.isChecked || habit.isCompleted; // Fallback to DB value if local state is not set
-        
+        const isChecked = habit.isChecked || habit.isCompleted;
         const displayIntensity = localIntensities[habit.id] ?? habit.intensity;
         
-        // Handle case-insensitive icon lookup
+        // Logical check: Has the user moved the slider in this session?
+        const hasMovedSlider = localIntensities[habit.id] !== undefined;
+
         const iconKey = Object.keys(PILLAR_ICONS).find(
           key => key.toLowerCase() === habit.pillar?.toLowerCase()
         );
         const HabitIcon = PILLAR_ICONS[iconKey] || Target;
 
         return (
-          <Stack key={habit.id} size="sm" style={layout.cardXxxs}>
+          <Stack key={habit.id} size="sm" style={layout.cardXxs}>
             <View style={[styles.cardInternal, isChecked ? { opacity: 0.4 } : { opacity: 1 }]}>
               <View style={styles.topRow}>
                 <View style={styles.mainContent}>
@@ -73,44 +63,34 @@ export default function HabitItemCard({ tasks, onComplete }) {
                     <HabitIcon size={20} color={colors.secondary} />
                   </View>
 
-
-            <View style={styles.textGroup}>
-              {/* Always show Task Title */}
-              <Text style={typography.light}>{habit.taskItem}</Text>
-              
-              {/* Always show Pillar */}
-              <Text style={typography.label}>Pillar: {habit.pillar}</Text>
-              
-              {/* Conditional Metrics displayed underneath */}
-              {habit.duration && (
-                <Text style={typography.label}>Min Duration: {habit.duration} mins</Text>
-              )}
-
-              {habit.targetDays && (
-                <Text style={typography.label}>
-                  Completed: {habit.completions?.length || 0} of {habit.targetDays} days
-                </Text>
-              )}
-            </View>
+                  <View style={styles.textGroup}>
+                    <Text style={typography.body}>{habit.taskItem}</Text>
+                    <Text style={typography.label}>Pillar: {habit.pillar}</Text>
+                    {habit.duration && (
+                      <Text style={typography.label}>Min {habit.duration} mins</Text>
+                    )}
+                  </View>
                 </View>
 
-                <TouchableOpacity 
-                  onPress={() => toggleIsChecked(habit.id)}
-                  style={styles.checkboxWrapper}
-                  disabled={isChecked}
-                >
-                  <View style={[styles.checkbox, isChecked && styles.checkboxActive]}>
-                    {isChecked && <Check size={16} color={colors.surface} strokeWidth={3} />}
-                  </View>
-                </TouchableOpacity>
+                {/* Checkbox is only rendered if task is already checked OR slider has moved */}
+                {(isChecked || hasMovedSlider) && (
+                  <TouchableOpacity 
+                    onPress={() => toggleIsChecked(habit.id)}
+                    style={styles.checkboxWrapper}
+                    disabled={isChecked}
+                  >
+                    <View style={[styles.checkbox, isChecked && styles.checkboxActive]}>
+                      {isChecked && <Check size={16} color={colors.surface} strokeWidth={3} />}
+                    </View>
+                  </TouchableOpacity>
+                )}
               </View>
 
-              {/* Slider Logic */}
               <View style={styles.sliderRow}>
                 <Text style={typography.label}>Fulfilment {displayIntensity}/10</Text>
                 <Slider
                   style={styles.slider}
-                  value={habit.intensity} 
+                  value={habit.intensity || 5} // Default to middle if no intensity set
                   disabled={isChecked}
                   minimumValue={1}
                   maximumValue={10}
@@ -133,15 +113,6 @@ const styles = StyleSheet.create({
     paddingVertical: spacing.sm,
     backgroundColor: colors.surface,
   },
-  topRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  mainContent: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
   iconBox: {
     width: 40,
     height: 40,
@@ -151,8 +122,27 @@ const styles = StyleSheet.create({
     borderColor: colors.black,
     borderRadius: 0,
   },
+  topRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: '100%',
+  },
+  mainContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flex: 1,         // Take up available space
+    flexShrink: 1,   // Allow shrinking to force text wrap
+    marginRight: 10, 
+  },
   textGroup: {
     marginLeft: spacing.md,
+    flex: 1,         // Force text within to wrap
+  },
+  checkboxWrapper: {
+    flexShrink: 0,   // Don't let the checkbox get squished
+    width: 40, 
+    alignItems: 'flex-end'
   },
   pillarLabel: {
     ...typography.light,
