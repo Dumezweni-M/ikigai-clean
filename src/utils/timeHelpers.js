@@ -13,4 +13,4 @@ export const isCheckedInCurrentCycle = (lastCheckedAt, resetHour = 0) => {
   }
 
   return lastChecked >= anchor;
-};r
+};

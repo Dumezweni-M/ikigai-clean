@@ -11,6 +11,7 @@ export const GET_TASKS = gql`
       duration
       targetDays
       createdAt
+      lastCompletedAt
       completions {
         id
         completedAt

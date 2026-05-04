@@ -22,6 +22,7 @@ const typeDefs = gql`
     duration: Int
     targetDays: Int
     createdAt: String!
+    lastCompletedAt: String
     completions: [TaskCompletion!]!
   }
 
@@ -60,28 +61,41 @@ const resolvers = {
       return prisma.user.findMany();
     },
 
-    taskItems: async () => {
-      const items = await prisma.taskItem.findMany({
-        orderBy: {
-          createdAt: 'desc'
+  taskItems: async () => {
+    const items = await prisma.taskItem.findMany({
+      orderBy: {
+        createdAt: 'desc'
+      },
+      include: {
+        completions: {
+          orderBy: {
+            completedAt: 'desc' // Ensures index 0 is the newest
+          }
         },
-        include: {
-          completions: true,
-        },
-      });
+      },
+    });
 
-      return items.map((item) => ({
+    return items.map((item) => {
+      // 1. Define the variable by looking at the first completion
+      const latestCompletionDate = item.lastCompletedAt || item.completions[0]?.completedAt;
+
+      return {
         ...item,
         createdAt: item.createdAt.toISOString(),
+        // 2. Use the defined variable here
+        lastCompletedAt: latestCompletionDate ? latestCompletionDate.toISOString() : null,
         completions: item.completions.map((c) => ({
           ...c,
           completedAt: c.completedAt.toISOString(),
         })),
-      }));
-    },
+      };
+    });
+  },
 
     taskCompletions: async () => {
-      const completions = await prisma.taskCompletion.findMany();
+      const completions = await prisma.taskCompletion.findMany({
+        orderBy: { completedAt: 'desc' }
+      });
 
       return completions.map((c) => ({
         ...c,

@@ -7,6 +7,7 @@ import { useNavigation } from "@react-navigation/native";
 import Slider from '@react-native-community/slider';
 import { Target, Check } from 'lucide-react-native';
 import { useState } from "react";
+import { isCheckedInCurrentCycle } from "../utils/timeHelpers.js";
 
 import Navbar from "../components/Navbar";
 import ScreenWrapper from "../components/ScreenWrapper";
@@ -44,15 +45,22 @@ const toggleIsChecked = () => {
   if (loading) return <Text>Loading tasks...</Text>;
   if (error) return <Text>Error: {error.message}</Text>;
 
-  const allTasks = data?.taskItems || [];
+
+  // Determine if each task is checked based on the most recent completion date and the current cycle, then filter and sort tasks for display
+  const allTasks = (data?.taskItems || []).map(task => {
+    const status = isCheckedInCurrentCycle(task.lastCompletedAt, 0);
+    return {
+      ...task,
+      isChecked: status,    // Keep for your sorting logic
+      isCompleted: status,  // Add for your toggleIsChecked logic
+    };
+  });
 
   // Filter task then sort 
-  const filteredTasks = [...(activePillar === "All" 
-    ? allTasks 
-    : allTasks.filter(task => 
-        task.pillar?.toLowerCase() === activePillar.toLowerCase()
-      )
-  )]
+const filteredTasks = [...allTasks]
+  .filter(task => 
+    activePillar === "All" || task.pillar?.toLowerCase() === activePillar.toLowerCase()
+  )
   .sort((a, b) => (a.isChecked === b.isChecked ? 0 : a.isChecked ? 1 : -1));
 
     const tasks = data?.taskItems || [];

@@ -24,6 +24,8 @@ model TaskItem {
   duration    Int?
   targetDays  Int?
   createdAt   DateTime @default(now())
+  lastCompletedAt DateTime?
+  
   completions TaskCompletion[]
 }
 
