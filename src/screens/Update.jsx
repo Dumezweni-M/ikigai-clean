@@ -46,9 +46,12 @@ const toggleIsChecked = () => {
   if (error) return <Text>Error: {error.message}</Text>;
 
 
+  const customResetHour = 10; // Set to 0 for midnight reset, adjust as needed
+  const customResetMinute = 20; 
+
   // Determine if each task is checked based on the most recent completion date and the current cycle, then filter and sort tasks for display
   const allTasks = (data?.taskItems || []).map(task => {
-    const status = isCheckedInCurrentCycle(task.lastCompletedAt, 0);
+    const status = isCheckedInCurrentCycle(task.lastCompletedAt, customResetHour, customResetMinute);
     return {
       ...task,
       isChecked: status,    // Keep for your sorting logic
