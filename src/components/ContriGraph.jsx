@@ -22,7 +22,7 @@ const chartConfig = {
 };
 
 
-const squareSize = 7;
+const squareSize = 24;
 const gutterSize = 1;
 const chartWidth = (53 * (squareSize + gutterSize)) + 80;
 const endOf2026 = new Date('2026-12-31')
@@ -80,7 +80,7 @@ export default function ActivityGraph() {
           numDays={365}
           width={chartWidth}
           height={250}
-          squareSize={squareSize + 10}
+          squareSize={squareSize}
           gutterSize={gutterSize}
           chartConfig={chartConfig}
           accessor='count'
