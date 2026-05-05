@@ -8,6 +8,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
+    "migrate": "npx prisma migrate dev --schema=./backend/prisma/schema.prisma",
     "android": "powershell -ExecutionPolicy Bypass -File ./dev.ps1 android",
     "reconnect": "powershell -ExecutionPolicy Bypass -File ./dev.ps1 reconnect",
     "devices": "powershell -ExecutionPolicy Bypass -File ./dev.ps1 devices"

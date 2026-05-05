@@ -46,8 +46,8 @@ const toggleIsChecked = () => {
   if (error) return <Text>Error: {error.message}</Text>;
 
 
-  const customResetHour = 12; // Set to 0 for midnight reset, adjust as needed
-  const customResetMinute = 36; 
+  const customResetHour = 10; // Set to 0 for midnight reset, adjust as needed
+  const customResetMinute = 54; 
 
   // Determine if each task is checked based on the most recent completion date and the current cycle, then filter and sort tasks for display
   const allTasks = (data?.taskItems || []).map(task => {

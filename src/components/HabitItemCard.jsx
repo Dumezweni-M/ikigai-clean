@@ -64,11 +64,23 @@ export default function HabitItemCard({ tasks, onComplete }) {
                   </View>
 
                   <View style={styles.textGroup}>
-                    <Text style={typography.body}>{habit.taskItem}</Text>
+                    {/* Task Title */}
+                    <Text style={typography.light}>{habit.taskItem}</Text>
+                    
+                    {/* Pillar */}
                     <Text style={typography.label}>Pillar: {habit.pillar}</Text>
+                    
+                    {/* Duration */}
                     {habit.duration && (
-                      <Text style={typography.label}>Min {habit.duration} mins</Text>
+                      <Text style={typography.label}>Min Duration: {habit.duration} mins</Text>
                     )}
+
+                    {/* Target Days Logic - Ensure this exists! */}
+                    {habit.targetDays ? (
+                      <Text style={typography.label}>
+                        Completed: {habit.completions?.length || 0} of {habit.targetDays} days
+                      </Text>
+                    ) : null}
                   </View>
                 </View>
 

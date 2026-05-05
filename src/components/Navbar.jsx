@@ -12,11 +12,11 @@ import Compass from 'lucide-react-native/dist/esm/icons/compass';
 import Sparkle from 'lucide-react-native/dist/esm/icons/sparkle';
 
 const NavItems = [
+  { name: 'Overview', icon: Waves },
   { name: 'Create', icon: Target },
   { name: 'Reflect', icon: Sparkle },
   { name: 'Home', icon: Compass },
   { name: 'Catalysts', icon: Scale },
-  { name: 'Dashboard', icon: Waves },
 ];
 
 
@@ -53,7 +53,7 @@ item: {
   alignItems: 'center',
   justifyContent: 'center',
   gap: 1,
-  // borderWidth: 0.5,
+  width: '15%'
   },
   label: {
     ...typography.label,

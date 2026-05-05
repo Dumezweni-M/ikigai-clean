@@ -39,3 +39,20 @@ model TaskCompletion {
   task        TaskItem @relation(fields: [taskId], references: [id], onDelete: Cascade)
 }
 
+model AchievedGoals {
+  id               String   @id @default(cuid())
+  originalHabitId  String
+  title            String
+  pillar           String   // e.g., "Physical", "Intellectual", "Financial"
+  
+  // Aggregated Analytics
+  finalCount       Int      // Total days completed
+  targetDays       Int      // What the original goal was
+  avgIntensity     Float    // Average intensity across all sessions
+  avgFulfillment   Float    // Average fulfillment across all sessions
+  
+  // Temporal Data
+  startedAt        DateTime
+  achievedAt       DateTime @default(now())
+}
+

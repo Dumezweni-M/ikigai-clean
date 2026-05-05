@@ -38,6 +38,7 @@ const typeDefs = gql`
     users: [User!]!
     taskItems: [TaskItem!]!
     taskCompletions: [TaskCompletion!]!
+    achievedGoals: [AchievedGoal!]!
   }
 
   type Mutation {
@@ -52,6 +53,18 @@ const typeDefs = gql`
 
     completeTask(taskId: String!, intensity: Int): TaskCompletion!
   }
+
+  type AchievedGoal {
+    id: ID!
+    originalHabitId: String!
+    title: String!
+    pillar: String!
+    finalCount: Int!
+    targetDays: Int!
+    avgIntensity: Float!
+    startedAt: String!
+    achievedAt: String!
+  }
 `;
 
 // RESOLVERS ------------------------------------------------------------------
@@ -61,99 +74,156 @@ const resolvers = {
       return prisma.user.findMany();
     },
 
-  taskItems: async () => {
-    const items = await prisma.taskItem.findMany({
-      orderBy: {
-        createdAt: 'desc'
-      },
-      include: {
-        completions: {
-          orderBy: {
-            completedAt: 'desc' // Ensures index 0 is the newest
-          }
+    taskItems: async () => {
+      const items = await prisma.taskItem.findMany({
+        orderBy: {
+          createdAt: 'desc',
         },
-      },
-    });
+        include: {
+          completions: {
+            orderBy: {
+              completedAt: 'desc',
+            },
+          },
+        },
+      });
 
-    return items.map((item) => {
-      // 1. Define the variable by looking at the first completion
-      const latestCompletionDate = item.lastCompletedAt || item.completions[0]?.completedAt;
+      return items.map((item) => {
+        const latestCompletionDate = item.lastCompletedAt || item.completions[0]?.completedAt;
 
-      return {
-        ...item,
-        createdAt: item.createdAt.toISOString(),
-        // 2. Use the defined variable here
-        lastCompletedAt: latestCompletionDate ? latestCompletionDate.toISOString() : null,
-        completions: item.completions.map((c) => ({
-          ...c,
-          completedAt: c.completedAt.toISOString(),
-        })),
-      };
-    });
-  },
+        return {
+          ...item,
+          createdAt: item.createdAt.toISOString(),
+          lastCompletedAt: latestCompletionDate ? latestCompletionDate.toISOString() : null,
+          completions: item.completions.map((c) => ({
+            ...c,
+            completedAt: c.completedAt.toISOString(),
+          })),
+        };
+      });
+    },
 
     taskCompletions: async () => {
       const completions = await prisma.taskCompletion.findMany({
-        orderBy: { completedAt: 'desc' }
+        orderBy: { completedAt: 'desc' },
       });
 
       return completions.map((c) => ({
         ...c,
         completedAt: c.completedAt.toISOString(),
-        // pillar is now handled directly by the DB field
       }));
-    }
+    },
+
+    achievedGoals: async () => {
+  try {
+    const goals = await prisma.achievedGoals.findMany({ 
+      orderBy: { achievedAt: 'desc' },
+    });
+
+    return goals.map((g) => ({
+      ...g,
+      // Map 'originalHabitId' from your schema to 'originalTaskId' for your GQL type
+      originalTaskId: g.originalHabitId, 
+      startedAt: g.startedAt.toISOString(),
+      achievedAt: g.achievedAt.toISOString(),
+    }));
+  } catch (error) {
+    console.error("Query Error in achievedGoals:", error);
+    throw new Error("Could not fetch archived goals");
+  }
+},
   },
 
   Mutation: {
-  createTaskItem: async (_, { taskItem, pillar, intensity, interval, duration, targetDays }) => {
-    try {
-      const newItem = await prisma.taskItem.create({
-        data: {
-          taskItem,
-          pillar,
-          intensity: null,
-          interval,
-          duration,
-          targetDays,
-          isChecked: false,
-        },
-      });
-
-      return {
-        ...newItem,
-        createdAt: newItem.createdAt.toISOString(),
-        completions: [],
-      };
-    } catch (error) {
-      console.error("Failed to create a task item:", error);
-      // Throwing a proper error prevents GraphQL from trying to return 'null'
-      throw new Error(`Failed to create task: ${error.message}`);
-    }
-  },
-
-    completeTask: async (_, { taskId, intensity }) => {
+    createTaskItem: async (_, { taskItem, pillar, intensity, interval, duration, targetDays }) => {
       try {
-        // 1. Fetch parent task to get the pillar name
-        const parentTask = await prisma.taskItem.findUnique({
-          where: { id: taskId }
-        });
-
-        if (!parentTask) throw new Error("Task not found");
-
-        // 2. Create completion WITH the pillar field
-        const completion = await prisma.taskCompletion.create({
+        const newItem = await prisma.taskItem.create({
           data: {
-            taskId: taskId,
-            intensity: intensity ?? 1,
-            pillar: parentTask.pillar, // This satisfies the DB requirement
+            taskItem,
+            pillar,
+            intensity: null,
+            interval,
+            duration,
+            targetDays,
+            isChecked: false,
           },
         });
 
-        // 3. Mark the task as checked
+        return {
+          ...newItem,
+          createdAt: newItem.createdAt.toISOString(),
+          completions: [],
+        };
+      } catch (error) {
+        console.error("Failed to create a task item:", error);
+        throw new Error(`Failed to create task: ${error.message}`);
+      }
+    },
+
+    completeTask: async (_, { taskId, intensity }) => {
+      try {
+        // 1. Fetch task and its completion history to check progress
+        const task = await prisma.taskItem.findUnique({
+          where: { id: taskId },
+          include: { completions: true },
+        });
+
+        if (!task) throw new Error("Task not found");
+
+        const newIntensity = intensity ?? 1;
+        const currentCount = task.completions.length + 1;
+
+        // 2. ARCHIVE LOGIC: Check if targetDays is reached
+        if (task.targetDays && currentCount >= task.targetDays) {
+          // Calculate average intensity for the archive snapshot
+          const allIntensities = [...task.completions.map((c) => c.intensity || 0), newIntensity];
+          const avgIntensity = allIntensities.reduce((a, b) => a + b, 0) / allIntensities.length;
+
+          // Execute as a transaction: Create Archive -> Delete Active
+          return await prisma.$transaction(async (tx) => {
+            await tx.achievedGoals.create({
+              data: {
+                originalHabitId: task.id,
+                title: task.taskItem,
+                pillar: task.pillar,
+                finalCount: currentCount,
+                targetDays: task.targetDays,
+                avgIntensity: avgIntensity,
+                avgFulfillment: 0, // Placeholder if you add fulfillment later
+                startedAt: task.createdAt,
+              },
+            });
+
+            await tx.taskItem.delete({
+              where: { id: taskId },
+            });
+
+            // Return a virtual completion object for GQL type safety
+            return {
+              id: `ARCHIVED_${task.id}`,
+              taskId: taskId,
+              completedAt: new Date().toISOString(),
+              intensity: newIntensity,
+              pillar: task.pillar,
+            };
+          });
+        }
+
+        // 3. STANDARD LOGIC: Target not reached, just log completion
+        const completion = await prisma.taskCompletion.create({
+          data: {
+            taskId: taskId,
+            intensity: newIntensity,
+            pillar: task.pillar,
+          },
+        });
+
         await prisma.taskItem.update({
           where: { id: taskId },
-          data: { isChecked: true }
+          data: { 
+            isChecked: true,
+            lastCompletedAt: new Date()
+          },
         });
 
         return {
@@ -164,8 +234,8 @@ const resolvers = {
         console.error("Mutation error:", error);
         throw error;
       }
-    }
-  }
+    },
+  },
 };
 
 // INITIALIZE AND START SERVER ------------------------------------------------ 

@@ -20,6 +20,7 @@ import ActivePillarHero from '../components/ActivePillarHero';
 
 import { useQuery } from '@apollo/client';
 import { GET_COMPLETIONS } from '../graphql/queries';
+import AchievedGoalsVault from '../components/AchievedGoalsVault';
 
 function Home() {
     const Navigation = useNavigation();
@@ -37,6 +38,11 @@ function Home() {
             {/* Introduction Hero Section */}
             <Stack style={layout.cardSm}>
                 <ActivePillarHero/>
+            </Stack>
+
+
+            <Stack style={layout.cardSm}>
+                <AchievedGoalsVault/>
             </Stack>
             
             {/* Weekly Flow State */}
