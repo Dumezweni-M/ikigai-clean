@@ -9,21 +9,21 @@ import { Target, Check } from 'lucide-react-native';
 import { useState } from "react";
 import { isCheckedInCurrentCycle } from "../utils/timeHelpers.js";
 
-import Navbar from "../components/Navbar";
-import ScreenWrapper from "../components/ScreenWrapper";
-import ScrollVertical from "../components/ScrollVertical";
-import Header from "../components/Header";
-import Stack from "../components/Stack";
-import Button from "../components/Buttons";
-import HabitItemCard from "../components/HabitItemCard";
-import DashboardFilter from "../components/DashboardFilter";
+import Navbar from "../components/Navbar.jsx";
+import ScreenWrapper from "../components/ScreenWrapper.jsx";
+import ScrollVertical from "../components/ScrollVertical.jsx";
+import Header from "../components/Header.jsx";
+import Stack from "../components/Stack.jsx";
+import Button from "../components/Buttons.jsx";
+import HabitItemCard from "../components/HabitItemCard.jsx";
+import DashboardFilter from "../components/DashboardFilter.jsx";
 
-import typography from "../styles/typography";
-import layout from "../styles/layout";
-import colors from "../styles/colors";
-import { spacing } from "../styles/spacing";
+import typography from "../styles/typography.js";
+import layout from "../styles/layout.js";
+import colors from "../styles/colors.js";
+import { spacing } from "../styles/spacing.js";
 
-export default function Reflect() {
+export default function Activity() {
 const navigation = useNavigation();
 const [activePillar, setActivePillar] = useState("All");
 
@@ -46,8 +46,8 @@ const toggleIsChecked = () => {
   if (error) return <Text>Error: {error.message}</Text>;
 
 
-  const customResetHour = 10; // Set to 0 for midnight reset, adjust as needed
-  const customResetMinute = 54; 
+  const customResetHour = 16; // Set to 0 for midnight reset, adjust as needed
+  const customResetMinute = 37; 
 
   // Determine if each task is checked based on the most recent completion date and the current cycle, then filter and sort tasks for display
   const allTasks = (data?.taskItems || []).map(task => {

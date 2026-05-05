@@ -12,11 +12,11 @@ import Compass from 'lucide-react-native/dist/esm/icons/compass';
 import Sparkle from 'lucide-react-native/dist/esm/icons/sparkle';
 
 const NavItems = [
-  { name: 'Overview', icon: Waves },
-  { name: 'Create', icon: Target },
-  { name: 'Reflect', icon: Sparkle },
   { name: 'Home', icon: Compass },
+  { name: 'Activity', icon: Sparkle },
+  { name: 'Overview', icon: Waves },
   { name: 'Catalysts', icon: Scale },
+  { name: 'Create', icon: Target },
 ];
 
 
@@ -30,7 +30,7 @@ export default function Navbar() {
           style={styles.item}
           onPress={() => navigation.navigate(item.name)}
         >
-          <item.icon size={24} color={colors.secondary} strokeWidth={0.8} />
+          <item.icon size={20} color={colors.secondary} strokeWidth={0.9} />
           <Text style={styles.label}>{item.name}</Text>
         </TouchableOpacity>
       ))}

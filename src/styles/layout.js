@@ -14,7 +14,7 @@ const layout = StyleSheet.create({
   },
   cardMd: {
     width: width,
-    height: height * 0.55,
+    height: height * 0.65,
     justifyContent: 'center',
     backgroundColor: colors.neutral,
     padding: spacing.xl,

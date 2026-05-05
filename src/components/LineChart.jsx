@@ -112,12 +112,6 @@ export default function LineGraph({ completions = [] }) {
         ))}
       </View>
 
-      {/* <View style={styles.topDaysRow}>
-        {chartData.labels.map(day => (
-          <Text key={day} style={styles.dayText}>{day}</Text>
-        ))}
-      </View> */}
-
       <LineChart
         data={chartData}
         width={screenWidth - 6}

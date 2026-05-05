@@ -5,7 +5,6 @@ import { useMutation, gql } from "@apollo/client"
 import { CREATE_TASK } from "../graphql/mutations";
 import { useState } from "react";
 
-import ScreenWrapper from "../components/ScreenWrapper";
 import ScrollVertical from "../components/ScrollVertical";
 import Stack from "../components/Stack";
 import typography from "../styles/typography";

@@ -25,7 +25,7 @@ export default function AchievedGoalsVault() {
 return (
     <ScrollVerical style={styles.container}>
         <Stack size="lg" style={[layout.cardXxxs, { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }]}>
-        <Text style={typography.light}>Tasks Completed</Text>
+        <Text style={typography.light}>Completed intentions</Text>
         <Text style={typography.light}>Total: {totalCompleted}</Text>
       </Stack>
       {data?.achievedGoals.map((goal) => (

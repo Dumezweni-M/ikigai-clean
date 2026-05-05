@@ -3,9 +3,10 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from '../screens/Home';
 import Welcome from '../screens/Welcome';
 import Initiate from '../screens/Initiate';
-import Reflect from '../screens/Update';
+import Activity from '../screens/Activity';
 import Create from '../screens/Create';
 import Catalysts from '../screens/Catalysts';
+import Overview from '../screens/Overview';
 
 
 
@@ -15,8 +16,8 @@ export default function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Home" component={Home} />
-      <Stack.Screen name="Reflect" component={Reflect} />
-      <Stack.Screen name="Update" component={Reflect} />
+      <Stack.Screen name="Activity" component={Activity} />
+      <Stack.Screen name="Overview" component={Overview} />
       <Stack.Screen name="Create" component={Create} />
       <Stack.Screen name="Catalysts" component={Catalysts} />
       <Stack.Screen name="Welcome" component={Welcome} />
