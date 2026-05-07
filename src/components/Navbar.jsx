@@ -13,7 +13,7 @@ import Sparkle from 'lucide-react-native/dist/esm/icons/sparkle';
 
 const NavItems = [
   { name: 'Home', icon: Compass },
-  { name: 'Activity', icon: Sparkle },
+  { name: 'Intentions', icon: Sparkle },
   { name: 'Overview', icon: Waves },
   { name: 'Catalysts', icon: Scale },
   { name: 'Create', icon: Target },

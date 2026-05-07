@@ -23,7 +23,7 @@ import layout from "../styles/layout.js";
 import colors from "../styles/colors.js";
 import { spacing } from "../styles/spacing.js";
 
-export default function Activity() {
+export default function Intentions() {
 const navigation = useNavigation();
 const [activePillar, setActivePillar] = useState("All");
 
@@ -73,7 +73,7 @@ const filteredTasks = [...allTasks]
       <ScrollVertical>
 
         <Stack size="sm" style={layout.cardXxs}>
-          <Text style={typography.h1}>Reflection</Text>
+          <Text style={typography.h1}>Intentions</Text>
           <Text style={typography.label}>Select the intesity of each task you completed before marking it as done. Tasks will be greyed out until midnight before being reactivated.  </Text>
         </Stack>
 

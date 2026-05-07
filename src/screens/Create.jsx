@@ -35,7 +35,7 @@ export default function Create() {
     const [addTask, { loading, error }] = useMutation(CREATE_TASK, {
         onCompleted: () => {
             console.log("Mutation successful!");
-            Navigation.navigate("Activity");
+            Navigation.navigate("Intentions");
         },
         refetchQueries: ["taskItems"],
         onError: (err) => {
