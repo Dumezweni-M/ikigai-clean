@@ -63,7 +63,7 @@ const PillarDeficitChart = () => {
       legend: ["FILLED", "THE GAP"],
       data: chartValues,
       barColors: [
-        pillarColors.Skill,   '',
+        pillarColors.Skill,   'rgba(0,0,0,0.07)',
         pillarColors.Skill,  'rgba(0,0,0,0.07)',
         pillarColors.Wealth, 'rgba(0,0,0,0.07)',
         pillarColors.World,  'rgba(0,0,0,0.0)',

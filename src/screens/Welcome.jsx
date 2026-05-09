@@ -24,7 +24,7 @@ export default function Welcome() {
                 <Stack style={layout.cardSm}>
                     <Text style={typography.label}>Welcome</Text>
                     <Text style={typography.h1}>Find Your Center</Text>
-                    <Text style={typography.body}>IMAGE</Text>
+                    {/* <Text style={typography.body}>IMAGE</Text> */}
                 </Stack>
 
                 {/* Introduction Hero Section */}
