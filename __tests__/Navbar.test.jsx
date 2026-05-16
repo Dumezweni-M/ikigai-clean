@@ -28,10 +28,10 @@ describe('Navbar', () => {
   test('renders all 5 nav items', () => {
     const { getByText } = render(<Navbar />);
     expect(getByText('Create')).toBeTruthy();
-    expect(getByText('Reflect')).toBeTruthy();
+    expect(getByText('Intentions')).toBeTruthy();
     expect(getByText('Home')).toBeTruthy();
     expect(getByText('Catalysts')).toBeTruthy();
-    expect(getByText('Dashboard')).toBeTruthy();
+    expect(getByText('Overview')).toBeTruthy();
   });
 
   // Verify pressing Home calls navigate with the correct screen name
@@ -52,7 +52,7 @@ describe('Navbar', () => {
   // ensures no item is hardcoded or wired to the wrong screen
   test('each nav item triggers navigation', () => {
     const { getByText } = render(<Navbar />);
-    const items = ['Create', 'Reflect', 'Home', 'Catalysts', 'Dashboard'];
+    const items = ['Create', 'Intentions', 'Home', 'Catalysts', 'Overview'];
     items.forEach(item => {
       fireEvent.press(getByText(item));
       expect(mockNavigate).toHaveBeenCalledWith(item);

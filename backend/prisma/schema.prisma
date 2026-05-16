@@ -43,13 +43,13 @@ model AchievedGoals {
   id               String   @id @default(cuid())
   originalHabitId  String
   title            String
-  pillar           String   // e.g., "Physical", "Intellectual", "Financial"
+  pillar           String   
   
   // Aggregated Analytics
-  finalCount       Int      // Total days completed
-  targetDays       Int      // What the original goal was
-  avgIntensity     Float    // Average intensity across all sessions
-  avgFulfillment   Float    // Average fulfillment across all sessions
+  finalCount       Int      // Days completed
+  targetDays       Int      // Original goal
+  avgIntensity     Float    // Across all sessions
+  avgFulfillment   Float    // Across all sessions
   
   // Temporal Data
   startedAt        DateTime

@@ -14,3 +14,13 @@ test('renders correctly', () => {
   expect(true).toBeTruthy();
 });
 
+jest.mock('../src/components/Navbar', () => {
+  const { View } = require('react-native');
+  return () => <View />;
+});
+
+test('renders correctly', () => {
+  render(<App />);
+  expect(true).toBeTruthy();
+});
+

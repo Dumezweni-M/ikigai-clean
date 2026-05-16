@@ -122,7 +122,7 @@ const resolvers = {
 
     return goals.map((g) => ({
       ...g,
-      // Map 'originalHabitId' from your schema to 'originalTaskId' for your GQL type
+      // Map 'originalHabitId' schema to 'originalTaskId' for GQL type
       originalTaskId: g.originalHabitId, 
       startedAt: g.startedAt.toISOString(),
       achievedAt: g.achievedAt.toISOString(),

@@ -31,7 +31,7 @@ export function calculateStats(completions, currentTime = new Date()) {
       const updatedDate = c.updatedAt ? new Date(c.updatedAt) : new Date();
       const daysPassed = Math.max(0, (currentTime - updatedDate) / (1000 * 60 * 60 * 24));
 
-      // Apply Exponential Decay: N = N0 * e^(-λt)
+      // Exponential Decay: N = N0 * e^(-λt)
       const decayedIntensity = baseIntensity * Math.exp(-decayRate * daysPassed);
       
       totals[key] += decayedIntensity;
