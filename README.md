@@ -1,5 +1,3 @@
-Here is the cleaned-up, fully organized Markdown for your Ikigai project README. I have fixed the formatting artifacts, standardized the layout hierarchy, and wrapped all blocks neatly.
-
 Ikigai
 A wellness and habit tracking app built on the four pillars of fulfillment: Love, Skill, Wealth, and Needs. Ikigai tracks your progress across these pillars with intelligent decay mechanics that reflect real-world habit patterns.
 
