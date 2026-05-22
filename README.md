@@ -1,10 +1,11 @@
 Ikigai
 A wellness and habit tracking app built on the four pillars of fulfillment: Love, Skill, Wealth, and Needs. Ikigai tracks your progress across these pillars with intelligent decay mechanics that reflect real-world habit patterns.
 
-Prerequisites
+
+#Prerequisites
 Before you start, ensure you have the following installed and configured:
 
-Required Core Tools
+#Required Core Tools
 Node.js (v22.11.0 or higher)
 
 npm (v10 or higher, included with Node.js)
@@ -13,7 +14,7 @@ Git
 
 Ruby (v2.6.10 or higher, required for iOS CocoaPods)
 
-Platform-Specific Requirements
+#Platform-Specific Requirements
 For Android Development
 Android Studio
 
@@ -23,14 +24,14 @@ Java Development Kit (JDK) (v11 or v17 recommended, included with Android Studio
 
 Gradle (installed with Android Studio)
 
-For iOS Development
+#For iOS Development
 Xcode (v14 or higher)
 
 CocoaPods (Ruby gem, installed automatically via Bundler)
 
 macOS (10.14 or higher)
 
-Backend Requirements
+#Backend Requirements
 PostgreSQL (v12 or higher) — Required for the GraphQL backend API. Ensure the PostgreSQL server is running before starting the backend.
 
 nodemon (optional but recommended for development)
@@ -42,7 +43,7 @@ adb (Android Debug Bridge) — included with Android Studio
 
 Watchman (for file watching, especially on macOS)
 
-Setup and Installation
+#Setup and Installation
 Step 1: Clone the Repository
 Bash
 git clone <repository-url>
