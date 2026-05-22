@@ -1,11 +1,11 @@
-Ikigai
+## Ikigai
 A wellness and habit tracking app built on the four pillars of fulfillment: Love, Skill, Wealth, and Needs. Ikigai tracks your progress across these pillars with intelligent decay mechanics that reflect real-world habit patterns.
 
 
-#Prerequisites
+Prerequisites
 Before you start, ensure you have the following installed and configured:
 
-#Required Core Tools
+# Required Core Tools
 Node.js (v22.11.0 or higher)
 
 npm (v10 or higher, included with Node.js)
@@ -14,7 +14,7 @@ Git
 
 Ruby (v2.6.10 or higher, required for iOS CocoaPods)
 
-#Platform-Specific Requirements
+# Platform-Specific Requirements
 For Android Development
 Android Studio
 
@@ -24,7 +24,7 @@ Java Development Kit (JDK) (v11 or v17 recommended, included with Android Studio
 
 Gradle (installed with Android Studio)
 
-#For iOS Development
+# For iOS Development
 Xcode (v14 or higher)
 
 CocoaPods (Ruby gem, installed automatically via Bundler)
@@ -36,18 +36,19 @@ PostgreSQL (v12 or higher) — Required for the GraphQL backend API. Ensure the 
 
 nodemon (optional but recommended for development)
 
-Recommended Tools
+## Recommended Tools
 Visual Studio Code (or your preferred code editor)
 
 adb (Android Debug Bridge) — included with Android Studio
 
 Watchman (for file watching, especially on macOS)
 
-#Setup and Installation
+## Setup and Installation
 Step 1: Clone the Repository
 Bash
 git clone <repository-url>
 cd ikigai
+
 Step 2: Install Frontend Dependencies
 Bash
 npm install
@@ -74,7 +75,11 @@ Code snippet
 API_BASE_URL=http://<YOUR_LOCAL_IP>:4000
 
 # Database configuration (backend only)
-DATABASE_URL=postgresql://username:password@localhost:5432/ikigai
+
+### ⚠️  Connection string can be found on Project Report cover page.
+simply copy and paste in .env file
+DATABASE_URL=-
+
 NODE_ENV=development
 Configuration Details:
 
@@ -135,16 +140,14 @@ Expected output:
 
 Prisma is connected to the database
 
-Terminal 3: Start the Metro Bundler
+# Terminal 3: Start the FE server
 Bash
-npm start
-# Or explicitly:
 npx react-native start
-Terminal 4: Run on Your Device
+# Terminal 4: Run on Your Device
 Running on Android (USB Cable)
 Connect your Android device via USB.
 
-Enable Developer Mode and USB Debugging via Settings > About Phone > Tap "Build Number" 7 times, then allow USB debugging under Developer Options.
+# ⚠️ Enable Developer Mode and USB Debugging via Settings > About Phone > Tap "Build Number" 7 times, then allow USB debugging under Developer Options.
 
 Run the following:
 
@@ -154,7 +157,7 @@ npm run android
 Running on Android (Wireless Debugging)
 Enable Wireless Debugging in your phone's Developer Options.
 
-Pair your device:
+# Pair your device:
 
 Bash
 npm run reconnect
