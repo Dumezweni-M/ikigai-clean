@@ -15,8 +15,8 @@ const Stack = createNativeStackNavigator();
 export default function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Overview" component={Overview} />
       <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="Overview" component={Overview} />
       <Stack.Screen name="Intentions" component={Intentions} />
       <Stack.Screen name="Home" component={Home} />
       <Stack.Screen name="Create" component={Create} />

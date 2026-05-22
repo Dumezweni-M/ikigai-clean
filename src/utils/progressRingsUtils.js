@@ -11,8 +11,8 @@ export function calculateStats(completions, currentTime = new Date()) {
   const DECAY_RATES = {
     love: 0.025,   // High decay: Relationships require constant attention
     needs: 0.020,  // Medium-High: Social needs and community fade quickly
-    skill: 0.010,  // Medium-Low: Habits and expertise have "stickiness"
-    wealth: 0.005, // Low: Financial/Resource energy is most stable
+    wealth: 0.010,  // Medium-Low: Habits and expertise have "stickiness"
+    skill: 0.005, // Low: Financial/Resource energy is most stable
   };
 
   if (!completions || completions.length === 0) {

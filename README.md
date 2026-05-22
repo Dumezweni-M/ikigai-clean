@@ -1,97 +1,201 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+# Ikigai
 
-# Getting Started
+A wellness and habit tracking app built on the four pillars of fulfillment: **Love**, **Skill**, **Wealth**, and **Needs**. Ikigai tracks your progress across these pillars with intelligent decay mechanics that reflect real-world habit patterns.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+## Prerequisites
 
-## Step 1: Start Metro
+Before you start, ensure you have:
+- Node.js and npm/Yarn installed
+- [React Native environment setup](https://reactnative.dev/docs/set-up-your-environment) complete
+- Access to the Ikigai backend API
+- Android Studio (for Android) or Xcode (for iOS)
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+## Getting Started
 
-To start the Metro dev server, run the following command from the root of your React Native project:
-
-```sh
-# Using npm
-npm start
-
-# OR using Yarn
-yarn start
-```
-
-## Step 2: Build and run your app
-
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
-
-### Android
+### Step 1: Install Dependencies
 
 ```sh
-# Using npm
-npm run android
+# Install npm packages
+npm install
 
-# OR using Yarn
-yarn android
-```
-
-### iOS
-
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
+# For iOS, install CocoaPods dependencies
+cd ios
 bundle install
-```
-
-Then, and every time you update your native dependencies, run:
-
-```sh
 bundle exec pod install
+cd ..
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+### Step 2: Configure Environment
+
+Create a `.env` file in the project root with the required configuration:
+
+```env
+API_BASE_URL=http://<YOUR_HOME_DEVICE_IP>:3000
+DATABASE_URL=<YOUR_DATABASE_CONNECTION_STRING>
+```
+
+Replace:
+- `<YOUR_HOME_DEVICE_IP>` with your home device's local IP address (e.g., `192.168.1.100`)
+- `<YOUR_DATABASE_CONNECTION_STRING>` with your database connection string
+
+> **Note**: If running the backend locally, use your machine's local IP (not `localhost`). Find it with `ipconfig` (Windows) or `ifconfig` (macOS/Linux).
+
+### Step 3: Start the Backend
+
+In a new terminal from the project root:
 
 ```sh
-# Using npm
-npm run ios
-
-# OR using Yarn
-yarn ios
+cd backend
+npm run dev
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+The backend will start and listen for API requests. Ensure it's running before starting the frontend.
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+### Step 4: Start the Frontend
 
-## Step 3: Modify your app
+In another new terminal from the project root:
 
-Now that you have successfully run the app, let's make changes!
+```sh
+npx react-native start
+```
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+This starts the development server and watches for changes.
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### Step 5: Build and Run on Android or iOS
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
+#### Android (USB Cable)
 
-## Congratulations! :tada:
+1. Connect your Android device via USB cable
+2. Enable Developer Mode on your device:
+   - Go to **Settings > About Phone**
+   - Tap **Build Number** 7 times
+   - Go to **Settings > Developer Options** and enable **USB Debugging**
+3. Verify device is connected:
+   ```sh
+   adb devices
+   ```
+4. Build and run:
+   ```sh
+   npm run android
+   ```
 
-You've successfully run and modified your React Native App. :partying_face:
+#### Android (Wireless Debugging)
 
-### Now what?
+1. Connect your device to the same WiFi as your computer
+2. Enable Developer Mode and **Wireless Debugging**:
+   - Go to **Settings > About Phone** and tap **Build Number** 7 times
+   - Go to **Settings > Developer Options** and enable **Wireless Debugging**
+3. On your device, tap **Wireless Debugging** and select **Pair with code**
+4. On your computer, run:
+   ```sh
+   adb pair <IP_ADDRESS>:<PORT>
+   ```
+   (Use the IP and port shown on your device's pairing code screen)
+5. Enter the pairing code from your device
+6. Once paired, connect:
+   ```sh
+   adb connect <IP_ADDRESS>:<PORT>
+   ```
+   (Use the same IP and a different port shown in Wireless Debugging settings)
+7. Verify connection:
+   ```sh
+   adb devices
+   ```
+8. Build and run:
+   ```sh
+   npm run android
+   ```
 
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
+#### iOS
 
-# Troubleshooting
+1. **Cable Method**: Connect your iPhone via USB cable
+2. **Wireless Method**: 
+   - Connect via USB cable first
+   - In Xcode: **Devices and Simulators > [Your Device] > Connect via Network**
+   - Disconnect cable (device stays connected wirelessly)
+3. Build and run:
+   ```sh
+   npm run ios
+   ```
 
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
+## Development
 
-# Learn More
+### Project Structure
 
-To learn more about React Native, take a look at the following resources:
+```
+.
+├── src/
+│   ├── components/       # React components
+│   ├── screens/          # Navigation screens
+│   ├── utils/            # Helper functions (decay, stats, pillar tracking)
+│   ├── api/              # Backend API calls
+│   └── types/            # TypeScript types
+├── App.tsx              # Root component
+└── package.json
+```
 
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+### Key Utilities
+
+The app includes utilities for:
+- **Decay mechanics**: `calculateStats()` — exponential decay for pillar progress
+- **Weekly tracking**: `processLineCompletions()` — aggregate completions by day
+- **Pillar management**: `getPillarFrequencies()` — track pillar engagement
+
+See `src/utils/stats.ts` and `src/utils/weekly.ts` for implementation details.
+
+### Reloading Changes
+
+To reload your app after code changes:
+- **Android**: Press `R` twice in the terminal running the build, or shake your device and select **Reload**
+- **iOS**: Press `Cmd+R` in the simulator
+
+For a full clean rebuild, re-run the build command.
+
+## Troubleshooting
+
+### Backend Connection Issues
+
+If the app can't connect to the backend:
+1. Verify your home device IP is correct and reachable
+2. Ensure the backend server is running on the configured port
+3. Check firewall settings on your development machine
+4. Test connectivity: `ping <YOUR_HOME_DEVICE_IP>`
+5. Verify `API_BASE_URL` in `App.jsx` is set correctly
+
+### Build Issues
+
+#### Android
+
+```sh
+# Clear gradle cache and rebuild
+cd android
+./gradlew clean
+cd ..
+npm run android
+```
+
+#### iOS
+
+```sh
+# Clean Xcode build
+cd ios
+xcodebuild clean -workspace Ikigai.xcworkspace -scheme Ikigai
+cd ..
+npm run ios
+```
+
+### Device Connection
+
+Ensure your device is connected and recognized:
+- **Android**: `adb devices`
+- **iOS**: Check Xcode's device selector
+
+## Learn More
+
+- [React Native Docs](https://reactnative.dev/docs/getting-started)
+- [React Native Troubleshooting](https://reactnative.dev/docs/troubleshooting)
+- [Ikigai Philosophy](https://en.wikipedia.org/wiki/Ikigai) — the intersection of passion, vocation, profession, and mission
+
+## Support
+
+For issues or questions, check the troubleshooting section above or consult the React Native docs.
